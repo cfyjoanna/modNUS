@@ -5,6 +5,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Aim
 
 
-##Features
+## Features
 
 ### Timetable Generator
