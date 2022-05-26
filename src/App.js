@@ -2,21 +2,18 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import Dashboard from './components/Dashboard/Dashboard';
-import Home from './components/Home/Home';
-import Login from './components/Login/Login';
-import Preferences from './components/Preferences/Preferences';
-import useToken from './useToken';
+import { useAuth } from './hooks/useAuth';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Home from './pages/Home/Home';
+import Preferences from './pages/Preferences/Preferences';
+import Login from './pages/Login';
 
 function App() {
-  const { token, setToken } = useToken();
-
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
+  const { user } = useAuth();
 
   return (
     <div>
+      {user ? <Home /> : <Login />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
