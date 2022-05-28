@@ -9,36 +9,38 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 
 import './App.css';
 import { useAuth } from './hooks/useAuth';
-import Dashboard from './pages/Dashboard/Dashboard';
-import Home from './pages/Home/Home';
-import Preferences from './pages/Preferences/Preferences';
+import Profile from './pages/Profile';
+import Home from './pages/Home';
+import TimetableGenerator from './pages/TimetableGenerator';
 import Login from './pages/Login';
-
 
 function App() {
   const { user } = useAuth();
 
+  if(!user) {
+    return <Login />
+  }
+
   return (
     <div>
       <MenuAppBar />
-      {user ? <Home /> : <Login />}
-      <BrowserRouter>
-        <Routes>
-          <Route path="home" element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="preferences" element={<Preferences />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="generator" element={<TimetableGenerator />} />
+      </Routes>
     </div>
   );
 
+  // entirety of below is for navbar
   function MenuAppBar() {
     const { user, signout } = useAuth();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorBurg, setAnchorBurg] = React.useState(null);
   
     const handleLogout = () => {
       handleClose();
@@ -52,6 +54,14 @@ function App() {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const handleBurgClose = () => {
+      setAnchorBurg(null)
+    }
+
+    const handleBurgMenu = (event) => {
+      setAnchorBurg(event.currentTarget)
+    }
   
     return (
       <Box sx={{ flexGrow: 1 }}>
@@ -62,10 +72,35 @@ function App() {
               edge="start"
               color="inherit"
               aria-label="menu"
+              onClick={handleBurgMenu}
               sx={{ mr: 2 }}
             >
               <MenuIcon />
             </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorBurg}
+              anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorBurg)}
+              onClose={handleBurgClose}
+            >
+                  
+                  {/* Burger button dropdown here*/}
+                  
+              <Link to='/generator' style={{ textDecoration: 'none' }}>
+                <MenuItem onClick={handleClose}>Timetable Generator</MenuItem>
+              </Link>
+            </Menu>
+
+
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               modNUS
             </Typography>
@@ -96,8 +131,12 @@ function App() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
+
+                  {/* Profile button dropdown here*/}
+                  
+                  <Link to='/profile' style={{ textDecoration: 'none' }}>
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  </Link>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </div>
