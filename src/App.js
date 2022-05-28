@@ -10,13 +10,15 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
 import { Route, Routes, Link } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
 
 import './App.css';
-import { useAuth } from './hooks/useAuth';
-import Profile from './pages/Profile';
 import Home from './pages/Home';
-import TimetableGenerator from './pages/TimetableGenerator';
 import Login from './pages/Login';
+import Planner from './pages/Planner';
+import Profile from './pages/Profile';
+import Reviews from './pages/Reviews';
+import TimetableGenerator from './pages/TimetableGenerator';
 
 function App() {
   const { user } = useAuth();
@@ -32,6 +34,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="profile" element={<Profile />} />
         <Route path="generator" element={<TimetableGenerator />} />
+        <Route path="planner" element={<Planner />} />
+        <Route path="reviews" element={<Reviews />} />
       </Routes>
     </div>
   );
@@ -96,7 +100,13 @@ function App() {
                   {/* Burger button dropdown here*/}
                   
               <Link to='/generator' style={{ textDecoration: 'none' }}>
-                <MenuItem onClick={handleClose}>Timetable Generator</MenuItem>
+                <MenuItem onClick={handleBurgClose}>Timetable Generator</MenuItem>
+              </Link>
+              <Link to='/planner' style={{ textDecoration: 'none' }}>
+                <MenuItem onClick={handleBurgClose}>Planner</MenuItem>
+              </Link>
+              <Link to='/reviews' style={{ textDecoration: 'none' }}>
+                <MenuItem onClick={handleBurgClose}>Reviews</MenuItem>
               </Link>
             </Menu>
 
