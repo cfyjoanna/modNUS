@@ -15,7 +15,7 @@ import { useAuth } from './hooks/useAuth';
 import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Planner from './pages/Planner';
+import Planner from './pages/planner/Planner';
 import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/TimetableGenerator';
@@ -97,8 +97,11 @@ function App() {
               onClose={handleBurgClose}
             >
                   
-                  {/* Burger button dropdown here*/}
+              {/* Burger button dropdown here*/}
                   
+              <Link to='/' style={{ textDecoration: 'none' }}>
+                <MenuItem onClick={handleBurgClose}>Home</MenuItem>
+              </Link>
               <Link to='/generator' style={{ textDecoration: 'none' }}>
                 <MenuItem onClick={handleBurgClose}>Timetable Generator</MenuItem>
               </Link>

@@ -2,6 +2,8 @@ import React from 'react';
 
 export default function Reviews() {
   return(
-    <h2>Reviews</h2>
+    <div className="wrapper">
+      <h2>Reviews</h2>
+    </div>
   );
 }
