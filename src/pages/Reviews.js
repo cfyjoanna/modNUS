@@ -4,16 +4,12 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useState, useRef } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import AddReview from './AddReview/AddReview.js'
 
 export default function Reviews() {
   const moduleNameRef = useRef();
-  let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = `./addreview`; 
-    navigate(path);
-  }
+  const [buttonPopup, setButtonPopup] = useState(false);
+
   return(
     <div className="wrapper">
       <h2>Reviews</h2>
@@ -35,9 +31,12 @@ export default function Reviews() {
         )}
       />
       
-        <IconButton aria-label="Example" onClick={routeChange}>
+        <IconButton aria-label="Example" onClick={() => setButtonPopup(true)}>
           <AddIcon fontSize="large"/>
         </IconButton>
+        <AddReview trigger={buttonPopup} setTrigger={setButtonPopup}>
+          <h2>Add review</h2>
+        </AddReview>
       
     </div>
   );
