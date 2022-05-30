@@ -42,7 +42,6 @@ const DropDownList = styled("ul")`
 
 
 const Timetable = styled("div")`
-  position: absolute;
   padding: 0.4em 2em 0.4em 1em;
   font-weight: 300;
   font-size: 1.3rem;
@@ -86,12 +85,6 @@ export default function TimetableGenerator() {
             )}
          </DropDownContainer>
         
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <Grid   
           container spacing={2}
           direction="row"
