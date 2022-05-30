@@ -83,15 +83,18 @@ export default function TimetableGenerator() {
               </DropDownListContainer>
             )}
          </DropDownContainer>
+
          <Timetable>
               <h2 id="h2" align={"center"}>Timetable</h2>
-        </Timetable>
+         </Timetable>
+
         <div class="row">
           <div class="left-col" align="left">
             <IconButton aria-label="Example">
               <ArrowBackIosNewIcon fontSize="large"/>
             </IconButton>
           </div>
+          
           <div class="right-col" align="right">
             <IconButton aria-label="Example">
               <ArrowForwardIosIcon fontSize="large"/>
@@ -99,6 +102,7 @@ export default function TimetableGenerator() {
           </div>
         </div>
         </Main>
+
         <SearchModules></SearchModules>
         <div class="container" align="right">
           <Button variant="contained" color="primary">
