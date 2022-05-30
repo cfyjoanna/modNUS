@@ -87,7 +87,7 @@ function App() {
               anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'right',
-                }}
+              }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
