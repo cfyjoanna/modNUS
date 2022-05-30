@@ -7,7 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import SearchModules from './SearchModules.js'
+import SearchModules from './SearchModules.js';
+import Grid from '@mui/material/Grid';
+
 
 
 const Main = styled("div")`
@@ -86,18 +88,15 @@ export default function TimetableGenerator() {
          <Timetable>
               <h2 id="h2" align={"center"}>Timetable</h2>
         </Timetable>
-        <div class="row">
-          <div class="left-col" align="left">
+        
+        <Grid container spacing={3}>
             <IconButton aria-label="Example">
               <ArrowBackIosNewIcon fontSize="large"/>
             </IconButton>
-          </div>
-          <div class="right-col" align="right">
             <IconButton aria-label="Example">
               <ArrowForwardIosIcon fontSize="large"/>
             </IconButton>
-          </div>
-        </div>
+        </Grid>
         </Main>
         <SearchModules></SearchModules>
         <div class="container" align="right">
