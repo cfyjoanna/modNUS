@@ -85,10 +85,6 @@ export default function TimetableGenerator() {
               </DropDownListContainer>
             )}
          </DropDownContainer>
-
-         <Timetable>
-              <h2 id="h2" align={"center"}>Timetable</h2>
-        </Timetable>
         
         <br />
         <br />
@@ -122,10 +118,10 @@ export default function TimetableGenerator() {
         </Grid>
         </Main>
 
-        <SearchModules></SearchModules>
+        <SearchModules />
         <div class="container" align="right">
           <Button variant="contained" color="primary">
-          Generate
+            Generate
           </Button>
         </div>
     </>
