@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import PlannerModules from './planner/PlannerModules';
+import { Button } from '@material-ui/core';
 
 export default function SearchModules() {
   const [modulesChosen, setModulesChosen] = React.useState([])
@@ -40,7 +41,7 @@ export default function SearchModules() {
           />
         )}
       />
-      <button onClick={handleModulesChosen}>Add Module</button>
+      <Button variant="contained" color="primary" onClick={handleModulesChosen}>Add Module</Button>
       <div>
        <PlannerModules mods={modulesChosen} />
       </div>
