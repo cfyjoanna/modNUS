@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import PlannerModules from './planner/PlannerModules';
 
