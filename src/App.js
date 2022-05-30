@@ -18,6 +18,7 @@ import Login from './pages/Login';
 import Planner from './pages/planner/Planner';
 import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
+import AddReview from './pages/AddReview'
 import TimetableGenerator from './pages/TimetableGenerator';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="generator" element={<TimetableGenerator />} />
         <Route path="planner" element={<Planner />} />
         <Route path="reviews" element={<Reviews />} />
+        <Route path="addreview" element={<AddReview />} />
       </Routes>
     </div>
   );
