@@ -9,7 +9,7 @@ export default function SearchModules() {
   const [modulesChosen, setModulesChosen] = React.useState([])
   const moduleNameRef = useRef();
 
-  const handleModulesChosen = mod => {
+  const handleModulesChosen = e => {
     const modName = moduleNameRef.current.value;
     if (modName === '') return;
     setModulesChosen(prevMods => {
@@ -21,6 +21,10 @@ export default function SearchModules() {
     });
     moduleNameRef.current.value = null;
   };
+
+  const handleClear = e => {
+    setModulesChosen([]);
+  }
 
   return (
     <>
@@ -42,6 +46,8 @@ export default function SearchModules() {
         )}
       />
       <Button variant="contained" color="primary" onClick={handleModulesChosen}>Add Module</Button>
+      <span> </span>
+      <Button variant="contained" color="primary" onClick={handleClear}>Clear</Button>
       <div>
        <PlannerModules mods={modulesChosen} />
       </div>
