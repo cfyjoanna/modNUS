@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';

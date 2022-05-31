@@ -1,6 +1,6 @@
 import React from 'react';
 import './AddReview.css'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@mui/material/TextField'
 
 export default function AddReview(props) {
     return(props.trigger) ? 

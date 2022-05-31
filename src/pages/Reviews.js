@@ -10,7 +10,7 @@ export default function Reviews() {
   const moduleNameRef = useRef();
   const [buttonPopup, setButtonPopup] = useState(false);
 
-  return(
+  return (
     <div className="wrapper">
       <h2>Reviews</h2>
       <Autocomplete
@@ -31,7 +31,7 @@ export default function Reviews() {
         )}
       />
       
-        <IconButton aria-label="Example" onClick={() => setButtonPopup(true)}>
+        <IconButton aria-label="Example" onClick={() => setButtonPopup(true)} size="large">
           <AddIcon fontSize="large"/>
         </IconButton>
         <AddReview trigger={buttonPopup} setTrigger={setButtonPopup}>
