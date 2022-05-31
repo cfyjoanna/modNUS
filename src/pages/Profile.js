@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Profile() {
-  const  { user } = useAuth();
+  const { user } = useAuth();
   const pfp = user.photoURL;
 
   return(

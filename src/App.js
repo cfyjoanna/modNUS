@@ -18,7 +18,7 @@ import Login from './pages/Login';
 import Planner from './pages/planner/Planner';
 import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
-import TimetableGenerator from './pages/TimetableGenerator';
+import TimetableGenerator from './pages/timetable/TimetableGenerator';
 
 function App() {
   const { user } = useAuth();

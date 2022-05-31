@@ -3,19 +3,16 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { Button } from "@mui/material";
 import ButtonGroup from '@mui/material/ButtonGroup';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import SearchModules from './SearchModules.js';
-import Grid from '@mui/material/Grid'
+import SearchModules from '../SearchModules.js';
 
-
+import Timetable from './Timetable.js';
+import Carousel from './Carousel.js';
 
 const Main = styled("div")`
   font-family: sans-serif;
   background: #f0f0f0;
-  height: 70vh;
+  height: 80vh;
 `;
 
 const DropDownContainer = styled("div")`
@@ -40,26 +37,13 @@ const DropDownList = styled("ul")`
   }
 `;
 
-
-const Timetable = styled("div")`
-  padding: 0.4em 2em 0.4em 1em;
-  font-weight: 300;
-  font-size: 1.3rem;
-  color: #3faffa;
-  background: #ffffff;
-  border: 2px solid grey;
-  bottom: 100px;
-  left: 230px;
-  width: 35.5em;
-  height: 15em;
-`;
-
 const filterButtons = [
   <Button key="one">Filter 1</Button>,
   <Button key="two">Filter 2</Button>,
   <Button key="three">Filter 3</Button>,
 ];
 
+const timetables = [ <Timetable />, <Timetable /> ];
 
 export default function TimetableGenerator() {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,32 +67,9 @@ export default function TimetableGenerator() {
                 </DropDownList>
               </DropDownListContainer>
             )}
-         </DropDownContainer>
+          </DropDownContainer>
         
-        <Grid   
-          container spacing={2}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          align="center">
-          <Grid item xs={2}>
-            <IconButton aria-label="Example" size="large">
-              <ArrowBackIosNewIcon fontSize="large"/>
-            </IconButton>
-          </Grid>
-
-          <Grid item xs={8}>
-            <Timetable>
-              <h2 id="h2" align={"center"}>Timetable</h2>
-            </Timetable>
-          </Grid>
-
-          <Grid item xs={2}>
-            <IconButton aria-label="Example" size="large">
-              <ArrowForwardIosIcon fontSize="large"/>
-            </IconButton>
-          </Grid>
-        </Grid>
+          <Carousel images={timetables}/>
         </Main>
 
         <SearchModules />
