@@ -8,7 +8,7 @@ export default function Profile() {
   return(
     <div className="wrapper">
       <h2>Profile</h2>
-      <img src={pfp} alt="Avatar" referrerpolicy="no-referrer"/>
+      <img src={pfp} alt="Avatar" referrerPolicy="no-referrer"/>
     </div>
   );
 }
