@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
-import { useState, useRef } from 'react';
+import Rating from '@mui/material/Rating';
+
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query } from "firebase/firestore"; 
+
+import { collection, getDocs, query } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig.js';
 
 import AddReview from './AddReview/AddReview.js'
@@ -15,6 +17,7 @@ export default function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [reviewIds, setIds] = useState([]);
 
+  // weird bug where there is a chance of duplicates of each review in reviews?? may be bc of async idk
   async function queryForReviews() {
     const reviewQuery = query(collection(db, "test"));
 
@@ -69,7 +72,12 @@ export default function Reviews() {
       {/* Printing out reviews from database*/}
       {reviews.map((review) => {
         return(
-          <div key={review.key}><h4>{review.Module} - {review.User}</h4>{review.Text}</div>
+          <div key={review.key}>
+            <h4>{review.Module} - {review.User}</h4>
+            <Rating name="read-only" value={review.Rating} readOnly />
+            <br /> <br />
+            {review.Text}
+          </div>
         )
       })}
     </div>
