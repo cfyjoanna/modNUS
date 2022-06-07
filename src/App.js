@@ -13,6 +13,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 
 import './App.css';
+import AddModReview from './pages/AddModReview';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Planner from './pages/planner/Planner';
@@ -36,6 +37,7 @@ function App() {
         <Route path="generator" element={<TimetableGenerator />} />
         <Route path="planner" element={<Planner />} />
         <Route path="reviews" element={<Reviews />} />
+        <Route path="addmodreview" element={<AddModReview />} />
       </Routes>
     </div>
   );
