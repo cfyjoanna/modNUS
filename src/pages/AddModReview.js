@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../hooks/useAuth';
@@ -9,6 +8,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig';
 
 import StarRating from './components/StarRating';
+import SearchBar from './components/SearchBar';
 
 function AddModReview() {
   const { user } = useAuth();
@@ -39,24 +39,7 @@ function AddModReview() {
     <div className="wrapper">
       <h2>Add Review</h2>
       <form onSubmit={handleSubmit}>
-        <Autocomplete
-          freeSolo
-          id="free-solo-2-demo"
-          disableClearable
-          options={modules.map((option) => option.title)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              required
-              label="Search modules"
-              inputRef={moduleNameRef}
-              InputProps={{
-                ...params.InputProps,
-                type: 'search',
-              }}
-            />
-          )}
-        />
+        <SearchBar refHook={moduleNameRef}/>
         <br />
         <StarRating setRating={setRating}/>
         <br />
@@ -68,13 +51,5 @@ function AddModReview() {
   );
 
 }
-
-const modules = [
-  { title: 'CS1101S', credits: 4 },
-  { title: 'CS2030S', credits: 4 },
-  { title: 'GEA1000', credits: 4 },
-  { title: 'GEX1025', credits: 4 },
-  { title: 'GEC1005', credits: 4 },
-];
 
 export default AddModReview;
