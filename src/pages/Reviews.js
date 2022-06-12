@@ -2,23 +2,28 @@ import React, { useState, useRef } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import Rating from '@mui/material/Rating';
+import { Grid } from '@mui/material';
 
 import { Link } from 'react-router-dom';
 
-import { collection, getDocs, query } from 'firebase/firestore'; 
+import { collection, getDocs, query, where } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig.js';
 
 import AddReview from './AddReview/AddReview.js'
 import SearchBar from './components/SearchBar.js';
 
 export default function Reviews() {
+  const moduleNameRef = useRef();
+  const [buttonPopup, setButtonPopup] = useState(false);
+
   const [reviews, setReviews] = useState([]);
   const [reviewIds, setIds] = useState([]);
 
-  // weird bug where there is a chance of duplicates of each review in reviews?? may be bc of async idk
-  async function queryForReviews() {
-    const reviewQuery = query(collection(db, "test"));
+  async function handleSearch() {
+    setReviews([]);
+    const reviewQuery = query(collection(db, "test"), where("Module", "==", moduleNameRef.current.value));
 
     const querySnapshot = await getDocs(reviewQuery);
     querySnapshot.forEach((doc) => {
@@ -27,17 +32,24 @@ export default function Reviews() {
         setIds(prev => [...prev, doc.id]);
       }
     });
+    moduleNameRef.current.value = null;
   }
-  queryForReviews();
-
-  const moduleNameRef = useRef();
-  const [buttonPopup, setButtonPopup] = useState(false);
 
   return (
     <div className="wrapper">
       <h2>Reviews</h2>
 
-      <SearchBar refHook={moduleNameRef} />
+      {/* Search bar and icon */}
+      <Grid container alignItems="center" spacing={2}>
+        <Grid item xs={11}>
+          <SearchBar refHook={moduleNameRef} />
+        </Grid>
+        <Grid item xs={1}>
+        <IconButton aria-label="search" onClick={handleSearch}>
+          <SearchIcon />
+        </IconButton>
+        </Grid>
+      </Grid>
       
       {/* Popup button */}
       <IconButton aria-label="Example" onClick={() => setButtonPopup(true)} size="large">
@@ -47,8 +59,8 @@ export default function Reviews() {
         <h2>Add review</h2>
       </AddReview>
 
-      <Link to='../addmodreview'>
-        <Button>add review</Button>
+      <Link to='../addmodreview' style={{ textDecoration: 'none' }}>
+        <Button variant="contained">add review</Button>
       </Link>
 
       {/* Printing out reviews from database*/}
