@@ -21,8 +21,10 @@ export default function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [reviewIds, setIds] = useState([]);
 
+  // may be able to remove reviewIds and setIds?
   async function handleSearch() {
     setReviews([]);
+    setIds([]);
     const reviewQuery = query(collection(db, "test"), where("Module", "==", moduleNameRef.current.value));
 
     const querySnapshot = await getDocs(reviewQuery);
@@ -66,11 +68,22 @@ export default function Reviews() {
       {/* Printing out reviews from database*/}
       {reviews.map((review) => {
         return(
-          <div key={review.key}>
-            <h4>{review.Module} - {review.User}</h4>
-            <Rating name="read-only" value={review.Rating} readOnly />
-            <br /> <br />
-            {review.Text}
+          <div className="review-box" key={review.key}>
+            <Grid container alignItems="center" spacing={2}>
+              <Grid item xs={12}>
+                <span style={{fontWeight: 'bold'}}>{review.Module}</span>
+                <span> review by {review.User}</span>
+              </Grid>
+              <Grid item xs={1}>
+                <span style={{fontWeight: 'bold'}}>Overall:</span>
+              </Grid>
+              <Grid item xs={11}>
+                <Rating name="read-only" value={review.Rating} readOnly />
+              </Grid>
+              <Grid item xs={12}>
+                {review.Text}
+              </Grid>
+            </Grid>
           </div>
         )
       })}

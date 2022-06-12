@@ -13,3 +13,10 @@ body, #root {
   align-items: center;
 }
 
+.review-box {
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid grey;
+  padding: 1em;
+  margin-bottom: 10px;
+}
