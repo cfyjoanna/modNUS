@@ -25,7 +25,7 @@ export default function Reviews() {
   async function handleSearch() {
     setReviews([]);
     setIds([]);
-    const reviewQuery = query(collection(db, "test"), where("Module", "==", moduleNameRef.current.value));
+    const reviewQuery = query(collection(db, "test"), where("module", "==", moduleNameRef.current.value));
 
     const querySnapshot = await getDocs(reviewQuery);
     querySnapshot.forEach((doc) => {
@@ -71,17 +71,17 @@ export default function Reviews() {
           <div className="review-box" key={review.key}>
             <Grid container alignItems="center" spacing={2}>
               <Grid item xs={12}>
-                <span style={{fontWeight: 'bold'}}>{review.Module}</span>
-                <span> review by {review.User}</span>
+                <span style={{fontWeight: 'bold'}}>{review.module}</span>
+                <span> review by {review.user}</span>
               </Grid>
               <Grid item xs={1}>
                 <span style={{fontWeight: 'bold'}}>Overall:</span>
               </Grid>
               <Grid item xs={11}>
-                <Rating name="read-only" value={review.Rating} readOnly />
+                <Rating name="read-only" value={review.rating} readOnly />
               </Grid>
               <Grid item xs={12}>
-                {review.Text}
+                {review.text}
               </Grid>
             </Grid>
           </div>
