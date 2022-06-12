@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import PlannerModules from './planner/PlannerModules';
+import PlannerModules from './components/PlannerModules';
 import { Button } from '@mui/material';
 
 export default function SearchModules() {

@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
 import Rating from '@mui/material/Rating';
 
@@ -12,6 +10,7 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig.js';
 
 import AddReview from './AddReview/AddReview.js'
+import SearchBar from './components/SearchBar.js';
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -38,24 +37,7 @@ export default function Reviews() {
     <div className="wrapper">
       <h2>Reviews</h2>
 
-      {/* Autocomplete search bar */}
-      <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
-        options={modules.map((option) => option.title)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search reviews"
-            inputRef={moduleNameRef}
-            InputProps={{
-              ...params.InputProps,
-              type: 'search',
-            }}
-          />
-        )}
-      />
+      <SearchBar refHook={moduleNameRef} />
       
       {/* Popup button */}
       <IconButton aria-label="Example" onClick={() => setButtonPopup(true)} size="large">
@@ -83,11 +65,3 @@ export default function Reviews() {
     </div>
   );
 }
-
-const modules = [
-  { title: 'CS1101S', credits: 4 },
-  { title: 'CS2030S', credits: 4 },
-  { title: 'GEA1000', credits: 4 },
-  { title: 'GEX1025', credits: 4 },
-  { title: 'GEC1005', credits: 4 },
-];

@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchModules from '../SearchModules';
+import SearchModules from './SearchModules';
 
 export default function Planner() {
   return(

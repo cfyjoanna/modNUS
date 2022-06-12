@@ -16,7 +16,7 @@ import './App.css';
 import AddModReview from './pages/AddModReview';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Planner from './pages/planner/Planner';
+import Planner from './pages/Planner';
 import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/timetable/TimetableGenerator';
