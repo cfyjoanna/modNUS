@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 import { useAuth } from '../hooks/useAuth';
 import { collection, addDoc } from 'firebase/firestore';
@@ -39,12 +40,26 @@ function AddModReview() {
     <div className="wrapper">
       <h2>Add Review</h2>
       <form onSubmit={handleSubmit}>
-        <SearchBar refHook={moduleNameRef}/>
-        <br />
-        <StarRating setRating={setRating}/>
-        <br />
-        <TextField required multiline fullWidth label="Write review here..." inputRef={reviewRef} />
-        <br /> <br />
+        <Grid container alignItems="center" spacing={2}>
+          <Grid item xs={2}>
+            <span>Module:</span>
+          </Grid>
+          <Grid item xs={10}>
+            <SearchBar refHook={moduleNameRef}/>
+          </Grid>
+          <Grid item xs={2}>
+            <span>Rating:</span>
+          </Grid>
+          <Grid item xs={10}>
+            <StarRating setRating={setRating}/>
+          </Grid>
+          <Grid item xs={2}>
+            <span>Review:</span>
+          </Grid>
+          <Grid item xs={10}>
+            <TextField required multiline fullWidth label="Write review here..." inputRef={reviewRef} />
+          </Grid>
+        </Grid>
         <Button type="submit" variant="contained" color="primary">Submit</Button>
       </form>
     </div>
