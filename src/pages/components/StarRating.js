@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 
 // setRating is a function; should be updating a state
 function StarRating({ setRating }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(3);
   return (
     <Rating
         name="simple-controlled"
