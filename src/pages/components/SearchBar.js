@@ -13,8 +13,8 @@ function SearchBar({ refHook }) {
   
   return (
     <Autocomplete
-      freeSolo
-      id="free-solo-2-demo"
+      disablePortal
+      id="combo-box-demo"
       disableClearable
       options={modules.map((option) => option.title)}
       renderInput={(params) => (
