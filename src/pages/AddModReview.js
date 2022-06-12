@@ -16,7 +16,7 @@ function AddModReview() {
   const moduleNameRef = useRef();
   const reviewRef = useRef();
   const navigate = useNavigate();
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(3);
 
   const handleSubmit = e => {
     // Prevents page from refreshing.
@@ -29,7 +29,7 @@ function AddModReview() {
       Text: reviewRef.current.value,
     })};
     docRef();
-    console.log("Document written:", docRef.id);
+    console.log("Document written");
     reviewRef.current.value = null;
     moduleNameRef.current.value = null;
     // Redirect to reviews page after submission.
