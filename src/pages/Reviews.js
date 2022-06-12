@@ -74,12 +74,29 @@ export default function Reviews() {
                 <span style={{fontWeight: 'bold'}}>{review.module}</span>
                 <span> review by {review.user}</span>
               </Grid>
+              <Grid item xs={12}>
+                <span>Taken in {review.sem} under Prof. {review.prof}</span>
+              </Grid>
+
               <Grid item xs={1}>
                 <span style={{fontWeight: 'bold'}}>Overall:</span>
               </Grid>
               <Grid item xs={11}>
                 <Rating name="read-only" value={review.rating} readOnly />
               </Grid>
+              <Grid item xs={1}>
+                <span style={{fontWeight: 'bold'}}>Difficulty:</span>
+              </Grid>
+              <Grid item xs={11}>
+                <Rating name="read-only" value={review.difficulty} readOnly />
+              </Grid>
+              <Grid item xs={1}>
+                <span style={{fontWeight: 'bold'}}>Workload:</span>
+              </Grid>
+              <Grid item xs={11}>
+                <Rating name="read-only" value={review.workload} readOnly />
+              </Grid>
+
               <Grid item xs={12}>
                 {review.text}
               </Grid>
