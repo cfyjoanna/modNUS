@@ -13,7 +13,7 @@ export default function Timeable() {
     left: 230px;
     width: 35.5em;
     height: 15em;
-`;
+    `;
 
     return (
         <TimetableStyle>
