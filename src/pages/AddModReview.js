@@ -10,6 +10,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig';
 
 import StarRating from './components/StarRating';
+import LabelledStarRating from './components/LabelledStarRating';
 import SearchBar from './components/SearchBar';
 
 function AddModReview() {
@@ -71,8 +72,9 @@ function AddModReview() {
           </Grid>
           <Grid item xs={10}>
             <TextField
-              id="outlined-select-currency"
+              id="outlined-select-semester"
               select
+              required
               label="Select"
               value={sem}
               onChange={(event) => {setSem(event.target.value);}}
@@ -98,14 +100,14 @@ function AddModReview() {
             <span>Difficulty:</span>
           </Grid>
           <Grid item xs={10}>
-            <StarRating setRating={setDifficulty}/>
+            <LabelledStarRating setRating={setDifficulty}/>
           </Grid>
 
           <Grid item xs={2}>
             <span>Workload:</span>
           </Grid>
           <Grid item xs={10}>
-            <StarRating setRating={setWorkload}/>
+            <LabelledStarRating setRating={setWorkload}/>
           </Grid>
 
           {/* Review text input */}
