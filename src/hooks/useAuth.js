@@ -72,7 +72,8 @@ function useProvideAuth() {
       .then((result) => {
         const details = getAdditionalUserInfo(result);
         if(details.isNewUser) {
-          setDoc(doc(db, "users", result.user.uid), {modules: []})
+          setDoc(doc(db, "users", result.user.uid),
+            {y1s1: [], y1s2: [], y2s1: [], y2s2: [], y3s1: [], y3s2: [], y4s1: [], y4s2: []})
         }
       });
   };
