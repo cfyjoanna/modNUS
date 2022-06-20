@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import PlannerModules from './components/PlannerModules';
+import ModuleList from './components/ModuleList';
 import { Button } from '@mui/material';
 
 export default function SearchModules() {
@@ -47,7 +47,7 @@ export default function SearchModules() {
       <span> </span>
       <Button variant="contained" color="primary" onClick={handleClear}>Clear</Button>
       <div>
-       <PlannerModules mods={modulesChosen} />
+       <ModuleList mods={modulesChosen} />
       </div>
       
       </>
