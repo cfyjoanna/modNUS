@@ -1,6 +1,7 @@
-import { app } from '../config/firebaseConfig';
+import { app, db } from '../config/firebaseConfig';
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo } from "firebase/auth";
+import { setDoc, doc } from 'firebase/firestore';
 
 const auth = getAuth(app);
 
@@ -67,7 +68,13 @@ function useProvideAuth() {
   };
 
   const signInWithGoogle = () => {
-    return signInWithPopup(auth, googleAuthProvider);
+    return signInWithPopup(auth, googleAuthProvider)
+      .then((result) => {
+        const details = getAdditionalUserInfo(result);
+        if(details.isNewUser) {
+          setDoc(doc(db, "users", result.user.uid), {modules: []})
+        }
+      });
   };
 
   // Subscribe to user on mount
