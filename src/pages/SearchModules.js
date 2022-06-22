@@ -15,6 +15,8 @@ export default function SearchModules() {
     setModulesChosen(prevMods => {
       if (!prevMods.includes(modName)) {
         return [...prevMods, modName]
+      } else {
+        return prevMods;
       }
     });
     moduleNameRef.current.value = null;
