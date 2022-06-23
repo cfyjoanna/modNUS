@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -6,7 +6,7 @@ import ModuleList from './components/ModuleList';
 import { Button } from '@mui/material';
 
 export default function SearchModules() {
-  const [modulesChosen, setModulesChosen] = React.useState([])
+  const [modulesChosen, setModulesChosen] = useState([])
   const moduleNameRef = useRef();
 
   const handleModulesChosen = e => {

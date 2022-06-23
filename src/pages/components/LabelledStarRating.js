@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 
@@ -15,8 +15,8 @@ function getLabelText(value) {
 }
 
 export default function LabelledStarRating({ setRating }) {
-  const [value, setValue] = React.useState(3);
-  const [hover, setHover] = React.useState(-1);
+  const [value, setValue] = useState(3);
+  const [hover, setHover] = useState(-1);
 
   return (
     <Box
