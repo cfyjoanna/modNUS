@@ -6,10 +6,9 @@ export default function ModuleList({ mods }) {
         mods.map(mod => {
             counter = counter + 1;
             return(
-                <span key={mod}>
+                <div className="module-box" key={mod}>
                     {counter}. {mod}
-                    <br />
-                </span>
+                </div>
             )
         })
     );
