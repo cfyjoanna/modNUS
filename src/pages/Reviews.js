@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
-import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Rating from '@mui/material/Rating';
 import { Grid } from '@mui/material';
@@ -11,12 +10,10 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, query, where } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig.js';
 
-import AddReview from './AddReview/AddReview.js'
 import SearchBar from './components/SearchBar.js';
 
 export default function Reviews() {
   const moduleNameRef = useRef();
-  const [buttonPopup, setButtonPopup] = useState(false);
 
   const [reviews, setReviews] = useState([]);
   const [reviewIds, setIds] = useState([]);
@@ -53,16 +50,20 @@ export default function Reviews() {
         </Grid>
       </Grid>
       
-      {/* Popup button */}
+      {/* Popup button
+      const [buttonPopup, setButtonPopup] = useState(false);
       <IconButton aria-label="Example" onClick={() => setButtonPopup(true)} size="large">
         <AddIcon fontSize="large"/>
       </IconButton>
       <AddReview trigger={buttonPopup} setTrigger={setButtonPopup}>
         <h2>Add review</h2>
-      </AddReview>
+      </AddReview>  */}
 
       <Link to='../addmodreview' style={{ textDecoration: 'none' }}>
-        <Button variant="contained">add review</Button>
+        {/* <Button variant="contained">add review</Button>*/}
+        <IconButton aria-label="Example" size="large">
+          <AddIcon fontSize="large"/>
+        </IconButton>
       </Link>
 
       {/* Printing out reviews from database*/}
