@@ -6,7 +6,7 @@ import ModuleList from './ModuleList';
 import { Button } from '@mui/material';
 
 /* Basically the same as SearchModules, except with added function of retrieving data from the database. */
-export default function PlannerMods({ updater, mods }) {
+export default function PlannerMods({ updater, mods, updateCoreMCs }) {
   const [modulesChosen, setModulesChosen] = useState(mods);
   const moduleNameRef = useRef();
 
@@ -25,6 +25,7 @@ export default function PlannerMods({ updater, mods }) {
         return prevMods;
       }
     });
+
     moduleNameRef.current.value = null;
   };
 
@@ -56,7 +57,7 @@ export default function PlannerMods({ updater, mods }) {
       <span> </span>
       <Button variant="contained" color="primary" onClick={handleClear}>Clear</Button>
       <div>
-       <ModuleList mods={modulesChosen} />
+       <ModuleList mods={modulesChosen} updateCoreMCs={updateCoreMCs} />
       </div>
       
       </>
