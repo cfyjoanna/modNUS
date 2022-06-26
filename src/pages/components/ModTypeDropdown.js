@@ -3,20 +3,26 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
-export default function ModTypeDropdown( { updateCoreMCs }) {
+export default function ModTypeDropdown( { credits, updateCoreMCs, updateUes }) {
   const [modType, setModType] = useState("");
 
   const handleChange = (event) => {
     if (modType === 1) {
-      updateCoreMCs(-4);
+      updateCoreMCs(-credits);
+    }
+
+    if (modType === 2) {
+      updateUes(-credits);
     }
 
     setModType(event.target.value);
 
-    console.log(modType)
-
     if (event.target.value === 1) {
-      updateCoreMCs(4);
+      updateCoreMCs(credits);
+    }
+    
+    if (event.target.value === 2) {
+      updateUes(credits);
     }
   }
 

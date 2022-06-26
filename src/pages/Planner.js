@@ -13,7 +13,6 @@ var ues = 0;
 
 export default function Planner() {
   const { user } = useAuth();
-  // eslint-disable-next-line
   const [finish, setFinish] = useState(false);
   
   const updateY1s1 = async (mods) => {
@@ -51,7 +50,18 @@ export default function Planner() {
     });
 
     coreMCs = coreMCs + mcs;
-    console.log(coreMCs)
+
+    setFinish(!finish);
+  }
+
+  const updateUes = async (mcs) => {
+    const docRef = doc(db, "users", user.uid);
+
+    await updateDoc(docRef, {
+      ues: ues + mcs,
+    });
+
+    ues = ues + mcs;
 
     setFinish(!finish);
   }
@@ -63,10 +73,10 @@ export default function Planner() {
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <h3>Y1S1</h3>
-          <PlannerMods updater={updateY1s1} mods={y1s1} updateCoreMCs={updateCoreMCs} />
+          <PlannerMods updater={updateY1s1} mods={y1s1} updateCoreMCs={updateCoreMCs} updateUes={updateUes}/>
 
           <h3>Y1S2</h3>
-          <PlannerMods updater={updateY1s2} mods={y1s2} />
+          <PlannerMods updater={updateY1s2} mods={y1s2} updateCoreMCs={updateCoreMCs} />
         </Grid>
         <Grid item xs={4}>
           <h3>MCs Taken</h3>
