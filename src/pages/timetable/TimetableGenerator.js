@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Button, Input } from "@mui/material";
+import { Button } from "@mui/material";
 import SearchModules from '../SearchModules.js';
 import TimeTable from '@mikezzb/react-native-timetable';
-import TextField from '@mui/material/TextField';
+import { useRef } from 'react';
 
 import Carousel from './Carousel.js';
+import TimeSearchBar from './TimeSearchBar.js';
+import Popup from '../Popup/Popup.js';
 
 const Main = styled("div")`
   font-family: sans-serif;
@@ -149,47 +151,46 @@ const allEventGroups = [
 export default function TimetableGenerator() {
   //const [eventGroups, setEventGroups] = useState(allEventGroups);
   // console.log(eventGroups)
+  const [buttonPopup, setButtonPopup] = useState(false);
   
   const [timetables, setTimeTables] = useState(
    [ <TimeTable 
     eventGroups={[]} 
     configs={{
       numOfDays: 5,
-    }} />, <TimeTable 
-     events={[
-      {
-        courseId: 'CSCI2100',
-        title: 'Data Structures',
-        section: 'A - LEC',
-        day: 3,
-        startTime: '14:30',
-        endTime: '16:15',
-        location: 'Online Teaching',
-        color: 'rgba(241,153,40,1)',
-      },]} 
-      configs={{
-          numOfDays: 5,
-        }} /> ]);
+    }} />,  ]);
+
+    const startTimeRef = useRef();
+    const endTimeRef = useRef();
 
     const handleTimeTables = e => {
+      const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
+      const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
+      
+      if (startTime >= endTime) {
+        setButtonPopup(true);
+      } else {
       setTimeTables(events => {
         return [ 
           <TimeTable 
           eventGroups={allEventGroups} 
+          configs={{
+            numOfDays: 5,
+            startHour: startTime,
+            endHour: endTime,
+          }}
            />];
-    })};
-    
+    })}};
+  
 
   return(
     <>
         <h2 id="h2" align={"center"}>Timetable Generator</h2>
-
+        
         <Main>
-        <div className="starttime">
-          Start Time: 
-          <TextField label="e.g 7 for 7am"> </TextField>
-          End Time:
-          <TextField label="e.g 20 for 8pm"> </TextField>
+        <div className="starttime"> 
+          <TimeSearchBar refHook={startTimeRef} label="start time"></TimeSearchBar>
+          <TimeSearchBar refHook={endTimeRef} label="end time"></TimeSearchBar>
         </div>
         
           <Carousel images={timetables}/>
@@ -201,7 +202,7 @@ export default function TimetableGenerator() {
             Generate
           </Button>
         </div>
-        
+        <Popup trigger={buttonPopup} setTrigger ={setButtonPopup}> </Popup>
     </>
   );
 }
