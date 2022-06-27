@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useRef } from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import ModuleList from './components/ModuleList';
+import SearchBar from './components/SearchBar';
+import TimetableModuleList from './components/TimetableModuleList';
 import { Button } from '@mui/material';
 
 export default function SearchModules() {
@@ -28,38 +27,14 @@ export default function SearchModules() {
 
   return (
     <>
-      <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
-        options={modules.map((option) => option.title)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search modules"
-            inputRef={moduleNameRef}
-            InputProps={{
-              ...params.InputProps,
-              type: 'search',
-            }}
-          />
-        )}
-      />
+      <SearchBar refHook={moduleNameRef}/>
       <Button variant="contained" color="primary" onClick={handleModulesChosen}>Add Module</Button>
       <span> </span>
       <Button variant="contained" color="primary" onClick={handleClear}>Clear</Button>
       <div>
-       <ModuleList mods={modulesChosen} />
+       <TimetableModuleList mods={modulesChosen} />
       </div>
       
       </>
   );
 }
-
-const modules = [
-  { title: 'CS1101S', credits: 4 },
-  { title: 'CS2030S', credits: 4 },
-  { title: 'GEA1000', credits: 4 },
-  { title: 'GEX1025', credits: 4 },
-  { title: 'GEC1005', credits: 4 },
-];
