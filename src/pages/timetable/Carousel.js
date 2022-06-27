@@ -37,8 +37,8 @@ function Carousel({ images }) {
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 sx={{
-                  height: 350,
-                  overflow: 'hidden',
+                  height: 2400,
+                  overflow: 'scroll',
                   width: '100%',
                 }}
               >
