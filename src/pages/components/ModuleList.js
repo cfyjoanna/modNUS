@@ -1,7 +1,7 @@
 import React from 'react';
 import ModTypeDropdown from './ModTypeDropdown';
 
-export default function ModuleList({ mods, updateCoreMCs, updateUes }) {
+export default function ModuleList({ mods, modtypes, sem, updateCoreMCs, updateUes, updateModtypes }) {
   let counter = 0;
   return(
     mods.map(mod => {
@@ -9,7 +9,8 @@ export default function ModuleList({ mods, updateCoreMCs, updateUes }) {
       const currMod = modules.find(obj => obj.title === mod);
       return(
         <div className="module-box" key={mod}>
-          <ModTypeDropdown credits={currMod.credits} updateCoreMCs={updateCoreMCs} updateUes={updateUes} />
+          <ModTypeDropdown credits={currMod.credits} modtypes={modtypes} index={counter - 1} sem={sem}
+            updateCoreMCs={updateCoreMCs} updateUes={updateUes} updateModtypes={updateModtypes} />
           {counter}. {mod}
         </div>
       )
