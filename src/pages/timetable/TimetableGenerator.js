@@ -104,7 +104,7 @@ const allEventGroups = [
         days: [4],
         startTimes: ['14:30'],
         endTimes: ['17:15'],
-        locations: ['Lady Shaw Bldg LT5'],
+        locations: ['LT5'],
       },
     },
   },
@@ -116,7 +116,7 @@ const allEventGroups = [
         days: [4],
         startTimes: ['11:30'],
         endTimes: ['13:15'],
-        locations: ['Lee Shau Kee Building LT5'],
+        locations: ['UT-LT5'],
       },
     },
   },
@@ -125,9 +125,9 @@ const allEventGroups = [
     title: 'Japanese 1',
     sections: {
       '': {
-        days: [7],
-        startTimes: ['12:30'],
-        endTimes: ['13:15'],
+        days: [1],
+        startTimes: ['9:30'],
+        endTimes: ['10:30'],
         locations: ['AS4'],
       },
     },
@@ -149,10 +149,21 @@ const allEventGroups = [
 
 
 export default function TimetableGenerator() {
-  //const [eventGroups, setEventGroups] = useState(allEventGroups);
-  // console.log(eventGroups)
   const [buttonPopup, setButtonPopup] = useState(false);
-  
+  const modulesChosenRef = useRef();
+  /*
+  const [chosenModules, setChosenModules] = useState([]);
+
+  const handleChosenModules = e => {
+    const module = modulesChosenRef.current.value;
+
+    setChosenModules(mod => {
+      const currMod = allEventGroups.map((option) => option.courseId === module);
+      console.log(module);
+      return [...mod, currMod];
+    })
+  }
+  */
   const [timetables, setTimeTables] = useState(
    [ <TimeTable 
     eventGroups={[]} 
@@ -162,12 +173,14 @@ export default function TimetableGenerator() {
 
     const startTimeRef = useRef();
     const endTimeRef = useRef();
+    const earliestTime = 8;
+    const latestTime = 19;
 
     const handleTimeTables = e => {
       const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
       const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
       
-      if (startTime >= endTime) {
+      if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
         setButtonPopup(true);
       } else {
       setTimeTables(events => {
@@ -196,11 +209,12 @@ export default function TimetableGenerator() {
           <Carousel images={timetables}/>
         </Main>
 
-        <SearchModules />
+        <SearchModules refHook={modulesChosenRef} />
         <div class="container" align="right">
           <Button variant="contained" color="primary" onClick={handleTimeTables}>
             Generate
           </Button>
+          {/*<Button variant="contained" color="primary" onClick={handleChosenModules}>Update List</Button>*/}
         </div>
         <Popup trigger={buttonPopup} setTrigger ={setButtonPopup}> </Popup>
     </>

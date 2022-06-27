@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useRef } from 'react';
 import SearchBar from './components/SearchBar';
 import TimetableModuleList from './components/TimetableModuleList';
 import { Button } from '@mui/material';
 
-export default function SearchModules() {
+export default function SearchModules({ refHook }) {
   const [modulesChosen, setModulesChosen] = useState([])
-  const moduleNameRef = useRef();
+  const moduleNameRef = refHook;
 
   const handleModulesChosen = e => {
     const modName = moduleNameRef.current.value;
