@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Button } from "@mui/material";
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { Button, Input } from "@mui/material";
 import SearchModules from '../SearchModules.js';
 import TimeTable from '@mikezzb/react-native-timetable';
+import TextField from '@mui/material/TextField';
 
 import Carousel from './Carousel.js';
 
@@ -12,39 +12,13 @@ const Main = styled("div")`
   font-family: sans-serif;
   background: #f0f0f0;
   height: 410vh;
-`;
-
-const DropDownContainer = styled("div")`
-  width: 10.5em;
-  height: 5em;
-`;
-
-
-const DropDownList = styled("ul")`
   padding: 0;
-  margin: 0;
-  padding-left: 1em;
-  background: #ffffff;
-  border: 2px solid #e5e5e5;
-  box-sizing: border-box;
-  color: #3faffa;
-  font-size: 1.3rem;
-  font-weight: 500;
-  &:first-child {
-    padding-top: 0em;
-  }
 `;
 
-const filterButtons = [
-  <Button key="one">Filter 1</Button>,
-  <Button key="two">Filter 2</Button>,
-  <Button key="three">Filter 3</Button>,
-];
-
-const eventGroups = [
+const allEventGroups = [
   {
-    courseId: 'AIST3020',
-    title: 'Intro to Computer Systems',
+    courseId: 'CS1101S',
+    title: 'Programming Methodology',
     sections: {
       '- - LEC': {
         days: [2, 3],
@@ -61,8 +35,8 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'CSCI2100',
-    title: 'Data Structures',
+    courseId: 'CS2040S',
+    title: 'Data Structures and Algorithms',
     sections: {
       'A - LEC': {
         days: [1, 3],
@@ -79,8 +53,8 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'ELTU2014',
-    title: 'English for ERG Stds I',
+    courseId: 'GEA1000',
+    title: 'Quantitative Reasoning with Data',
     sections: {
       'BEC1 - CLW': {
         days: [2, 4],
@@ -91,7 +65,7 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'ENGG2780',
+    courseId: 'ST2201E',
     title: 'Statistics for Engineers',
     sections: {
       'B - LEC': {
@@ -109,8 +83,8 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'GESC1000',
-    title: 'College Assembly',
+    courseId: 'GEC1005',
+    title: 'Cultural Borrowing: China and Japan',
     sections: {
       '-A01 - ASB': {
         days: [5],
@@ -121,8 +95,8 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'UGEB1492',
-    title: 'Data Expl - Stat in Daily Life',
+    courseId: 'DSA1701',
+    title: 'Data Exploration',
     sections: {
       '- - LEC': {
         days: [4],
@@ -133,7 +107,7 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'UGEC1685',
+    courseId: 'GET1685',
     title: 'Drugs and Culture',
     sections: {
       '- - LEC': {
@@ -145,20 +119,20 @@ const eventGroups = [
     },
   },
   {
-    courseId: 'Eat!',
-    title: 'No work on SUNDAY!',
+    courseId: 'LAJ1201',
+    title: 'Japanese 1',
     sections: {
       '': {
         days: [7],
         startTimes: ['12:30'],
         endTimes: ['13:15'],
-        locations: ['Home'],
+        locations: ['AS4'],
       },
     },
   },
   {
-    courseId: 'Manga!',
-    title: '',
+    courseId: 'LAJ2201',
+    title: 'Japanese 2',
     sections: {
       '': {
         days: [6],
@@ -170,49 +144,64 @@ const eventGroups = [
   },
 ];
 
-const timetables = [ <TimeTable eventGroups={eventGroups} 
-   />, <TimeTable events={[
-    {
-      courseId: 'CSCI2100',
-      title: 'Data Structures',
-      section: 'A - LEC',
-      day: 3,
-      startTime: '14:30',
-      endTime: '16:15',
-      location: 'Online Teaching',
-      color: 'rgba(241,153,40,1)',
-    },]} numOfDays={5} /> ];
+
 
 export default function TimetableGenerator() {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggling = () => setIsOpen(!isOpen);
+  //const [eventGroups, setEventGroups] = useState(allEventGroups);
+  // console.log(eventGroups)
+  
+  const [timetables, setTimeTables] = useState(
+   [ <TimeTable 
+    eventGroups={[]} 
+    configs={{
+      numOfDays: 5,
+    }} />, <TimeTable 
+     events={[
+      {
+        courseId: 'CSCI2100',
+        title: 'Data Structures',
+        section: 'A - LEC',
+        day: 3,
+        startTime: '14:30',
+        endTime: '16:15',
+        location: 'Online Teaching',
+        color: 'rgba(241,153,40,1)',
+      },]} 
+      configs={{
+          numOfDays: 5,
+        }} /> ]);
+
+    const handleTimeTables = e => {
+      setTimeTables(events => {
+        return [ 
+          <TimeTable 
+          eventGroups={allEventGroups} 
+           />];
+    })};
+    
 
   return(
     <>
         <h2 id="h2" align={"center"}>Timetable Generator</h2>
 
         <Main>
-          <DropDownContainer>
-            <Button variant="outlined" onClick={toggling}>Filter by</Button>
-            {isOpen && (
-                <DropDownList>
-                  <ButtonGroup orientation="vertical"
-                    aria-label="vertical outlined button group">
-                      {filterButtons}
-                  </ButtonGroup>
-                </DropDownList>
-            )}
-          </DropDownContainer>
+        <div className="starttime">
+          Start Time: 
+          <TextField label="e.g 7 for 7am"> </TextField>
+          End Time:
+          <TextField label="e.g 20 for 8pm"> </TextField>
+        </div>
         
           <Carousel images={timetables}/>
         </Main>
 
         <SearchModules />
         <div class="container" align="right">
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={handleTimeTables}>
             Generate
           </Button>
         </div>
+        
     </>
   );
 }
