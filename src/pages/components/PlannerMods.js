@@ -4,8 +4,6 @@ import SearchBar from './SearchBar';
 import ModuleList from './ModuleList';
 import { Button } from '@mui/material';
 
-// var finalModtypes = [];
-
 /* Basically the same as SearchModules, except with added function of retrieving data from the database. */
 export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMCs, updateUes, updateModtypes }) {;
   const [modulesChosen, setModulesChosen] = useState(mods);
