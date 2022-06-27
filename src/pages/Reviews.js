@@ -11,6 +11,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig.js';
 
 import SearchBar from './components/SearchBar.js';
+import LabelledRatingReadOnly from './components/LabelledRatingReadOnly.js';
 
 export default function Reviews() {
   const moduleNameRef = useRef();
@@ -89,13 +90,13 @@ export default function Reviews() {
                 <span style={{fontWeight: 'bold'}}>Difficulty:</span>
               </Grid>
               <Grid item xs={11}>
-                <Rating name="read-only" value={review.difficulty} readOnly />
+                <LabelledRatingReadOnly value={review.difficulty} />
               </Grid>
               <Grid item xs={1}>
                 <span style={{fontWeight: 'bold'}}>Workload:</span>
               </Grid>
               <Grid item xs={11}>
-                <Rating name="read-only" value={review.workload} readOnly />
+                <LabelledRatingReadOnly value={review.workload} />
               </Grid>
 
               <Grid item xs={12}>
