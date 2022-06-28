@@ -50,18 +50,8 @@ export default function Reviews() {
         </IconButton>
         </Grid>
       </Grid>
-      
-      {/* Popup button
-      const [buttonPopup, setButtonPopup] = useState(false);
-      <IconButton aria-label="Example" onClick={() => setButtonPopup(true)} size="large">
-        <AddIcon fontSize="large"/>
-      </IconButton>
-      <AddReview trigger={buttonPopup} setTrigger={setButtonPopup}>
-        <h2>Add review</h2>
-      </AddReview>  */}
 
       <Link to='../addmodreview' style={{ textDecoration: 'none' }}>
-        {/* <Button variant="contained">add review</Button>*/}
         <IconButton aria-label="Example" size="large">
           <AddIcon fontSize="large"/>
         </IconButton>

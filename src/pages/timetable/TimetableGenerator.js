@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Button } from "@mui/material";
-import SearchModules from '../SearchModules.js';
+import SearchModules from '../components/SearchModules.js';
 import TimeTable from '@mikezzb/react-native-timetable';
 import { useRef } from 'react';
 
@@ -150,20 +150,21 @@ const allEventGroups = [
 
 export default function TimetableGenerator() {
   const [buttonPopup, setButtonPopup] = useState(false);
-  const modulesChosenRef = useRef();
+  const moduleTypedRef = useRef();
+  
+  const [modulesChosen, setModulesChosen] = useState([]);
+
   /*
-  const [chosenModules, setChosenModules] = useState([]);
+  const handleModulesChosen = e => {
+    const module = moduleTypedRef.current.value;
 
-  const handleChosenModules = e => {
-    const module = modulesChosenRef.current.value;
-
-    setChosenModules(mod => {
+    setModulesChosen(mod => {
       const currMod = allEventGroups.map((option) => option.courseId === module);
       console.log(module);
       return [...mod, currMod];
     })
-  }
-  */
+  } */
+  
   const [timetables, setTimeTables] = useState(
    [ <TimeTable 
     eventGroups={[]} 
@@ -179,7 +180,7 @@ export default function TimetableGenerator() {
     const handleTimeTables = e => {
       const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
       const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
-      
+
       if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
         setButtonPopup(true);
       } else {
@@ -193,9 +194,11 @@ export default function TimetableGenerator() {
             endHour: endTime,
           }}
            />];
-    })}};
+      })}
+      startTimeRef.current.value = null;
+      endTimeRef.current.value = null;
+    };
   
-
   return(
     <>
         <h2 id="h2" align={"center"}>Timetable Generator</h2>
@@ -209,7 +212,7 @@ export default function TimetableGenerator() {
           <Carousel images={timetables}/>
         </Main>
 
-        <SearchModules refHook={modulesChosenRef} />
+        <SearchModules refHookForModTyped={moduleTypedRef} modulesChosen={modulesChosen} setModulesChosen={setModulesChosen} />
         <div class="container" align="right">
           <Button variant="contained" color="primary" onClick={handleTimeTables}>
             Generate
