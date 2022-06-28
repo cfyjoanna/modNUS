@@ -4,7 +4,6 @@ import TimetableModuleList from './TimetableModuleList';
 import { Button } from '@mui/material';
 
 export default function SearchModules({ refHookForModTyped, modulesChosen, setModulesChosen }) {
-  // const [modulesChosen, setModulesChosen] = useState([])
   const moduleNameRef = refHookForModTyped;
 
   const handleModulesChosen = e => {
@@ -33,7 +32,6 @@ export default function SearchModules({ refHookForModTyped, modulesChosen, setMo
       <div>
        <TimetableModuleList mods={modulesChosen} />
       </div>
-      
-      </>
+    </>
   );
 }

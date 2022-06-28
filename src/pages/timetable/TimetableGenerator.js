@@ -172,52 +172,59 @@ export default function TimetableGenerator() {
       numOfDays: 5,
     }} />,  ]);
 
-    const startTimeRef = useRef();
-    const endTimeRef = useRef();
-    const earliestTime = 8;
-    const latestTime = 19;
+  const startTimeRef = useRef();
+  const endTimeRef = useRef();
+  const earliestTime = 8;
+  const latestTime = 19;
 
-    const handleTimeTables = e => {
-      const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
-      const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
+  const handleTimeTables = e => {
+    const eventsGroup = modulesChosen.map(mod => {
+      return allEventGroups.find((option) => option.courseId === mod);
+    });
+    const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
+    const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
 
-      if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
-        setButtonPopup(true);
-      } else {
+    if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
+      setButtonPopup(true);
+    } else {
       setTimeTables(events => {
         return [ 
           <TimeTable 
-          eventGroups={allEventGroups} 
-          configs={{
-            numOfDays: 5,
-            startHour: startTime,
-            endHour: endTime,
-          }}
+            eventGroups={eventsGroup} 
+            configs={{
+              numOfDays: 5,
+              startHour: startTime,
+              endHour: endTime,
+            }}
            />];
       })}
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
+      console.log(eventsGroup);
+      console.log(allEventGroups);
     };
   
   return(
     <>
-        <h2 id="h2" align={"center"}>Timetable Generator</h2>
+      <h2 id="h2" align={"center"}>Timetable Generator</h2>
         
-        <Main>
+      <Main>
         <div className="starttime"> 
           <TimeSearchBar refHook={startTimeRef} label="start time"></TimeSearchBar>
           <TimeSearchBar refHook={endTimeRef} label="end time"></TimeSearchBar>
         </div>
-        
-          <Carousel images={timetables}/>
-        </Main>
 
-        <SearchModules refHookForModTyped={moduleTypedRef} modulesChosen={modulesChosen} setModulesChosen={setModulesChosen} />
+        <Carousel images={timetables}/>
+      </Main>
+
+        <SearchModules 
+          refHookForModTyped={moduleTypedRef} 
+          modulesChosen={modulesChosen} 
+          setModulesChosen={setModulesChosen}  />
         <div class="container" align="right">
           <Button variant="contained" color="primary" onClick={handleTimeTables}>
             Generate
           </Button>
-          {/*<Button variant="contained" color="primary" onClick={handleChosenModules}>Update List</Button>*/}
         </div>
         <Popup trigger={buttonPopup} setTrigger ={setButtonPopup}> </Popup>
     </>
