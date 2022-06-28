@@ -9,6 +9,7 @@ import { useRef } from 'react';
 import Carousel from './Carousel.js';
 import TimeSearchBar from './TimeSearchBar.js';
 import Popup from '../Popup/Popup.js';
+import './TimeTableGenerator.css';
 
 const Main = styled("div")`
   font-family: sans-serif;
@@ -21,6 +22,8 @@ const allEventGroups = [
   {
     courseId: 'CS1101S',
     title: 'Programming Methodology',
+    earliestTime: 11,
+    latestTime: 19,
     sections: {
       '- - LEC': {
         days: [2, 3],
@@ -39,6 +42,8 @@ const allEventGroups = [
   {
     courseId: 'CS2040S',
     title: 'Data Structures and Algorithms',
+    earliestTime: 14,
+    latestTime: 18,
     sections: {
       'A - LEC': {
         days: [1, 3],
@@ -57,6 +62,8 @@ const allEventGroups = [
   {
     courseId: 'GEA1000',
     title: 'Quantitative Reasoning with Data',
+    earliestTime: 8,
+    latestTime: 12,
     sections: {
       'BEC1 - CLW': {
         days: [2, 4],
@@ -69,6 +76,8 @@ const allEventGroups = [
   {
     courseId: 'ST2201E',
     title: 'Statistics for Engineers',
+    earliestTime: 12,
+    latestTime: 15,
     sections: {
       'B - LEC': {
         days: [1],
@@ -87,6 +96,8 @@ const allEventGroups = [
   {
     courseId: 'GEC1005',
     title: 'Cultural Borrowing: China and Japan',
+    earliestTime: 11,
+    latestTime: 14,
     sections: {
       '-A01 - ASB': {
         days: [5],
@@ -99,6 +110,8 @@ const allEventGroups = [
   {
     courseId: 'DSA1701',
     title: 'Data Exploration',
+    earliestTime: 14,
+    latestTime: 18,
     sections: {
       '- - LEC': {
         days: [4],
@@ -111,6 +124,8 @@ const allEventGroups = [
   {
     courseId: 'GET1685',
     title: 'Drugs and Culture',
+    earliestTime: 11,
+    latestTime: 14,
     sections: {
       '- - LEC': {
         days: [4],
@@ -123,6 +138,8 @@ const allEventGroups = [
   {
     courseId: 'LAJ1201',
     title: 'Japanese 1',
+    earliestTime: 9,
+    latestTime: 11,
     sections: {
       '': {
         days: [1],
@@ -135,12 +152,14 @@ const allEventGroups = [
   {
     courseId: 'LAJ2201',
     title: 'Japanese 2',
+    earliestTime: 16,
+    latestTime: 20,
     sections: {
       '': {
-        days: [6],
+        days: [3],
         startTimes: ['16:30'],
         endTimes: ['19:15'],
-        locations: ['Home'],
+        locations: ['AS6'],
       },
     },
   },
@@ -153,17 +172,6 @@ export default function TimetableGenerator() {
   const moduleTypedRef = useRef();
   
   const [modulesChosen, setModulesChosen] = useState([]);
-
-  /*
-  const handleModulesChosen = e => {
-    const module = moduleTypedRef.current.value;
-
-    setModulesChosen(mod => {
-      const currMod = allEventGroups.map((option) => option.courseId === module);
-      console.log(module);
-      return [...mod, currMod];
-    })
-  } */
   
   const [timetables, setTimeTables] = useState(
    [ <TimeTable 
@@ -174,12 +182,15 @@ export default function TimetableGenerator() {
 
   const startTimeRef = useRef();
   const endTimeRef = useRef();
-  const earliestTime = 8;
-  const latestTime = 19;
+  let earliestTime = 8;
+  let latestTime = 19;
 
   const handleTimeTables = e => {
     const eventsGroup = modulesChosen.map(mod => {
-      return allEventGroups.find((option) => option.courseId === mod);
+      const currEvent = allEventGroups.find((option) => option.courseId === mod);
+      earliestTime = Math.min(earliestTime, currEvent.earliestTime);
+      latestTime = Math.max(latestTime, currEvent.latestTime);
+      return currEvent;
     });
     const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
     const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
@@ -200,8 +211,7 @@ export default function TimetableGenerator() {
       })}
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
-      console.log(eventsGroup);
-      console.log(allEventGroups);
+      console.log(earliestTime);
     };
   
   return(
@@ -216,7 +226,21 @@ export default function TimetableGenerator() {
 
         <Carousel images={timetables}/>
       </Main>
-
+      {/*will fix the css later*/}
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+        <div className='search-modules'>
         <SearchModules 
           refHookForModTyped={moduleTypedRef} 
           modulesChosen={modulesChosen} 
@@ -225,6 +249,7 @@ export default function TimetableGenerator() {
           <Button variant="contained" color="primary" onClick={handleTimeTables}>
             Generate
           </Button>
+        </div>
         </div>
         <Popup trigger={buttonPopup} setTrigger ={setButtonPopup}> </Popup>
     </>
