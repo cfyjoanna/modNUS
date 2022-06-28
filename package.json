@@ -1,7 +1,6 @@
 {
   "name": "modnus",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -25,17 +24,11 @@
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
-  "engines":{
-    "npm": "6.14.9",
-    "node": "16.x"
-  },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "node index.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
