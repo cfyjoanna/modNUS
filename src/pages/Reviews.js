@@ -38,6 +38,7 @@ export default function Reviews() {
   return (
     <div className="wrapper">
       <h2>Reviews</h2>
+      <span>Click on search icon to find reviews.</span>
 
       {/* Search bar and icon */}
       <Grid container alignItems="center" spacing={2}>
