@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlannerMods from './components/PlannerMods';
 import { useAuth } from '../hooks/useAuth';
 import { db } from '../config/firebaseConfig';
@@ -16,6 +16,22 @@ var ues = [];
 export default function Planner() {
   const { user } = useAuth();
   const [finish, setFinish] = useState(false);
+
+  useEffect(() => {
+    const getMods = async () => {
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+  
+      y1s1 = docSnap.data().y1s1;
+      y1s2 = docSnap.data().y1s2;
+      y1s1modtypes = docSnap.data().y1s1modtypes;
+      y1s2modtypes = docSnap.data().y1s2modtypes;
+      coreMCs = docSnap.data().coremcs;
+      ues = docSnap.data().ues;
+    }
+    getMods().then(result => setFinish(true));
+    // eslint-disable-next-line
+  }, [])
   
   const updateY1s1 = async (mods) => {
     const docRef = doc(db, "users", user.uid);
@@ -52,19 +68,6 @@ export default function Planner() {
 
     setFinish(!finish);
   }
-
-  const getMods = async () => {
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-
-    y1s1 = docSnap.data().y1s1;
-    y1s2 = docSnap.data().y1s2;
-    y1s1modtypes = docSnap.data().y1s1modtypes;
-    y1s2modtypes = docSnap.data().y1s2modtypes;
-    coreMCs = docSnap.data().coremcs;
-    ues = docSnap.data().ues;
-  }
-  getMods().then(result => setFinish(true));
 
   /* mcs is the amount to increase MCs by; if mcs is 0, the sem is updated to have 0 MCs. */
   const updateCoreMCs = async (mcs, sem) => {
