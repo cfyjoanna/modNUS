@@ -25,3 +25,5 @@ There may be a visible re-render when adding modules. This is a known issue and 
 ### Module Reviews
 
 Enter a module name and click on the search icon to find reviews.
+
+Not every module has reviews as we did not enter example reviews for every module. You can add your own review and try searching for it.
