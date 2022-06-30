@@ -23,19 +23,19 @@ const allEventGroups = [
     courseId: 'CS1101S',
     title: 'Programming Methodology',
     earliestTime: 11,
-    latestTime: 19,
+    latestTime: 18,
     sections: {
       '- - LEC': {
         days: [2, 3],
         startTimes: ['11:30', '16:30'],
-        endTimes: ['12:15', '18:15'],
-        locations: ['Online Teaching', 'Online Teaching'],
+        endTimes: ['12:00', '18:00'],
+        locations: ['COM1-SR1', 'COM3-LT17'],
       },
       '-L01 - LAB': {
         days: [2],
         startTimes: ['16:30'],
-        endTimes: ['17:15'],
-        locations: ['Online Teaching'],
+        endTimes: ['17:30'],
+        locations: ['AS6'],
       },
     },
   },
@@ -48,14 +48,14 @@ const allEventGroups = [
       'A - LEC': {
         days: [1, 3],
         startTimes: ['16:30', '14:30'],
-        endTimes: ['17:15', '16:15'],
-        locations: ['Online Teaching', 'Online Teaching'],
+        endTimes: ['17:00', '16:00'],
+        locations: ['COM1-LT3', 'COM1-LT6'],
       },
       'AT02 - TUT': {
         days: [4],
         startTimes: ['17:30'],
-        endTimes: ['18:15'],
-        locations: ['Online Teaching'],
+        endTimes: ['18:00'],
+        locations: ['COM2-0114'],
       },
     },
   },
@@ -63,13 +63,13 @@ const allEventGroups = [
     courseId: 'GEA1000',
     title: 'Quantitative Reasoning with Data',
     earliestTime: 8,
-    latestTime: 12,
+    latestTime: 11,
     sections: {
       'BEC1 - CLW': {
         days: [2, 4],
         startTimes: ['10:30', '8:30'],
-        endTimes: ['11:15', '10:15'],
-        locations: ['Online Teaching', 'Online Teaching'],
+        endTimes: ['11:00', '10:00'],
+        locations: ['UT-SR2', 'Global Learning Room'],
       },
     },
   },
@@ -82,28 +82,28 @@ const allEventGroups = [
       'B - LEC': {
         days: [1],
         startTimes: ['12:30'],
-        endTimes: ['14:15'],
-        locations: ['Online Teaching'],
+        endTimes: ['14:30'],
+        locations: ['AS3-LT8'],
       },
       'BT01 - TUT': {
         days: [3],
         startTimes: ['12:30'],
-        endTimes: ['14:15'],
-        locations: ['Online Teaching'],
+        endTimes: ['14:00'],
+        locations: ['E4-04-02'],
       },
     },
   },
   {
     courseId: 'GEC1005',
-    title: 'Cultural Borrowing: China and Japan',
+    title: 'Cultural Borrowing: Korea and Japan',
     earliestTime: 11,
-    latestTime: 14,
+    latestTime: 13,
     sections: {
       '-A01 - ASB': {
         days: [5],
         startTimes: ['11:30'],
-        endTimes: ['13:15'],
-        locations: ['Online Teaching'],
+        endTimes: ['13:00'],
+        locations: ['AS5-0218'],
       },
     },
   },
@@ -111,12 +111,12 @@ const allEventGroups = [
     courseId: 'DSA1701',
     title: 'Data Exploration',
     earliestTime: 14,
-    latestTime: 18,
+    latestTime: 16,
     sections: {
       '- - LEC': {
         days: [4],
-        startTimes: ['14:30'],
-        endTimes: ['17:15'],
+        startTimes: ['14:00'],
+        endTimes: ['16:00'],
         locations: ['LT5'],
       },
     },
@@ -125,12 +125,12 @@ const allEventGroups = [
     courseId: 'GET1685',
     title: 'Drugs and Culture',
     earliestTime: 11,
-    latestTime: 14,
+    latestTime: 13,
     sections: {
       '- - LEC': {
         days: [4],
         startTimes: ['11:30'],
-        endTimes: ['13:15'],
+        endTimes: ['13:00'],
         locations: ['UT-LT5'],
       },
     },
@@ -152,13 +152,27 @@ const allEventGroups = [
   {
     courseId: 'LAJ2201',
     title: 'Japanese 2',
-    earliestTime: 16,
-    latestTime: 20,
+    earliestTime: 8,
+    latestTime: 10,
     sections: {
-      '': {
+      '- - LG01': {
         days: [3],
-        startTimes: ['16:30'],
-        endTimes: ['19:15'],
+        startTimes: ['08:00'],
+        endTimes: ['10:00'],
+        locations: ['AS6'],
+      },
+    },
+  },
+  {
+    courseId: 'LAJ2201',
+    title: 'Japanese 2',
+    earliestTime: 10,
+    latestTime: 12,
+    sections: {
+      '- - LG02': {
+        days: [3],
+        startTimes: ['10:00'],
+        endTimes: ['12:00'],
         locations: ['AS6'],
       },
     },
@@ -182,19 +196,24 @@ export default function TimetableGenerator() {
 
   const startTimeRef = useRef();
   const endTimeRef = useRef();
-  let earliestTime = 8;
-  let latestTime = 19;
 
   const handleTimeTables = e => {
+    let earliestTime = 20;
+    let latestTime = 8;
+    const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
+    const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
+
     const eventsGroup = modulesChosen.map(mod => {
-      const currEvent = allEventGroups.find((option) => option.courseId === mod);
+      const currEvent = allEventGroups.find((option) => 
+        option.courseId === mod && (startTime <= option.earliestTime && endTime >= option.latestTime)
+      );
+      console.log(earliestTime);
+      console.log(currEvent);
       earliestTime = Math.min(earliestTime, currEvent.earliestTime);
       latestTime = Math.max(latestTime, currEvent.latestTime);
       return currEvent;
     });
-    const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
-    const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
-
+    
     if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
       setButtonPopup(true);
     } else {
