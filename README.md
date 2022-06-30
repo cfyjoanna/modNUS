@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## How to Use
 
-To start running, check that you have Node.js by running `node -v`, then run `npm start` to start the application on a local host in your browser.
+To start running, open the terminal and check that you have Node.js by running `node -v`, then run `npm start` to start the application on a local host in your browser.
 
 If the error `Missing script: "start"` appears, try running `npm install react-scripts --save`.
 
@@ -12,9 +12,15 @@ If the error `Missing script: "start"` appears, try running `npm install react-s
 
 ### Timetable Generator
 
+Enter the preferred earliest starting time and latest ending time at the top of the page.
+
+Enter modules into module list at the bottom of the page and click generate to generate a timetable. An error message will be displayed if it is not possible to abide by the start and end times inputted.
+
 ### Planner
 
 Enter modules into the plan. Modular credits are automatically awarded upon changing module type.
+
+There may be a visible re-render when adding modules. This is a known issue and will be fixed.
 
 ### Module Reviews
 
