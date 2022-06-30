@@ -11,13 +11,15 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMCs, updateUes, updateModtypes }) {;
   const [modulesChosen, setModulesChosen] = useState(mods);
   const [finalModtypes, setFinalModtypes] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false); // module added snackbar
+  const [added, setAdded] = useState(false); // module already added snackbar
   const moduleNameRef = useRef();
 
   useEffect(() => {
     setModulesChosen(mods);
   }, [mods])
 
+  // modtypes may change to undefined for an unknown reason. This is a temporary measure to prevent errors
   useEffect(() => {
     if (typeof modtypes !== "undefined" && modtypes.length > 0) {
       setFinalModtypes(modtypes);
@@ -31,14 +33,15 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
       if (!prevMods.includes(modName)) {
         updater([...prevMods, modName]);
         modtypes.push(0);
+        setOpen(true);
         return [...prevMods, modName];
       } else {
+        setAdded(true);
         return prevMods;
       }
     });
 
     updateModtypes(modtypes);
-    setOpen(true);
     moduleNameRef.current.value = null;
   };
 
@@ -50,7 +53,7 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
     updateUes(0, sem);
   }
 
-  // for snackbar
+  // for "module added" snackbar
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -72,6 +75,28 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
     </Fragment>
   );
 
+  // for "module already added" snackbar
+  const handleAddedClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setAdded(false);
+  };
+
+  const addedAction = (
+    <Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleAddedClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </Fragment>
+  );
+
   return (
     <>
       <SearchBar refHook={moduleNameRef} />
@@ -84,10 +109,17 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
       </div>
       <Snackbar
         open={open}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
         onClose={handleClose}
         message="Module added!"
         action={action}
+      />
+      <Snackbar
+        open={added}
+        autoHideDuration={3000}
+        onClose={handleAddedClose}
+        message="You have already added this module."
+        action={addedAction}
       />
       
     </>
