@@ -68,7 +68,7 @@ export default function Reviews() {
                 <span> review by {review.user}</span>
               </Grid>
               <Grid item xs={12}>
-                <span>Taken in {review.sem} under Prof. {review.prof}</span>
+                <span>Taken in {review.sem} under {review.prof}</span>
               </Grid>
 
               <Grid item xs={1}>
