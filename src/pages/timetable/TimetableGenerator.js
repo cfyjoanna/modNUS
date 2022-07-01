@@ -196,6 +196,7 @@ export default function TimetableGenerator() {
 
   const startTimeRef = useRef();
   const endTimeRef = useRef();
+  let possibleTimetable = true;
 
   const handleTimeTables = e => {
     let earliestTime = 20;
@@ -207,20 +208,27 @@ export default function TimetableGenerator() {
       const currEvent = allEventGroups.find((option) => 
         option.courseId === mod && (startTime <= option.earliestTime && endTime >= option.latestTime)
       );
-      console.log(earliestTime);
+      //console.log(earliestTime);
       console.log(currEvent);
-      earliestTime = Math.min(earliestTime, currEvent.earliestTime);
-      latestTime = Math.max(latestTime, currEvent.latestTime);
-      return currEvent;
+      if (typeof(currEvent) === 'undefined') {
+        setButtonPopup(true);
+        possibleTimetable = false;
+        return {};
+      } else {
+        earliestTime = Math.min(earliestTime, currEvent.earliestTime);
+        latestTime = Math.max(latestTime, currEvent.latestTime);
+        return currEvent;
+      }
     });
     
     if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
       setButtonPopup(true);
+      possibleTimetable = false;
     } else {
       setTimeTables(events => {
         return [ 
           <TimeTable 
-            eventGroups={eventsGroup} 
+            eventGroups={possibleTimetable ? eventsGroup : []} 
             configs={{
               numOfDays: 5,
               startHour: startTime,
@@ -230,7 +238,6 @@ export default function TimetableGenerator() {
       })}
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
-      console.log(earliestTime);
     };
   
   return(
@@ -264,13 +271,13 @@ export default function TimetableGenerator() {
           refHookForModTyped={moduleTypedRef} 
           modulesChosen={modulesChosen} 
           setModulesChosen={setModulesChosen}  />
-        <div class="container" align="right">
+        <div className="container" align="right">
           <Button variant="contained" color="primary" onClick={handleTimeTables}>
             Generate
           </Button>
         </div>
         </div>
-        <Popup trigger={buttonPopup} setTrigger ={setButtonPopup}> </Popup>
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}> </Popup>
     </>
   );
 }
