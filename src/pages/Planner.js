@@ -56,6 +56,8 @@ export default function Planner() {
       y1s1modtypes: modtypes,
     });
 
+    y1s1modtypes = modtypes;
+
     setFinish(!finish);
   }
 
@@ -65,6 +67,8 @@ export default function Planner() {
     await updateDoc(docRef, {
       y1s2modtypes: modtypes,
     });
+
+    y1s2modtypes = modtypes;
 
     setFinish(!finish);
   }
