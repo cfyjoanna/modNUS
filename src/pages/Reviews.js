@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Rating from '@mui/material/Rating';
 import { Grid } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 
 import { Link } from 'react-router-dom';
 
@@ -53,9 +54,11 @@ export default function Reviews() {
       </Grid>
 
       <Link to='../addmodreview' style={{ textDecoration: 'none' }}>
-        <IconButton aria-label="Example" size="large">
-          <AddIcon fontSize="large"/>
-        </IconButton>
+        <Tooltip title="Add your own review">
+          <IconButton aria-label="Example" size="large">
+            <AddIcon fontSize="large"/>
+          </IconButton>
+        </Tooltip>
       </Link>
 
       {/* Printing out reviews from database*/}
@@ -68,7 +71,7 @@ export default function Reviews() {
                 <span> review by {review.user}</span>
               </Grid>
               <Grid item xs={12}>
-                <span>Taken in {review.sem} under Prof. {review.prof}</span>
+                <span>Taken in {review.sem} under {review.prof}</span>
               </Grid>
 
               <Grid item xs={1}>

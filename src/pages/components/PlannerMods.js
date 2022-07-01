@@ -21,7 +21,7 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
 
   // modtypes may change to undefined for an unknown reason. This is a temporary measure to prevent errors
   useEffect(() => {
-    if (typeof modtypes !== "undefined" && modtypes.length > 0) {
+    if (typeof modtypes !== "undefined") {
       setFinalModtypes(modtypes);
     }
   }, [modtypes])

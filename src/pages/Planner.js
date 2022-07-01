@@ -13,6 +13,7 @@ var y1s2modtypes = [];
 var coreMCs = [];
 var ues = [];
 
+/* Children components: components PlannerMods (SearchBar) > ModuleList > ModTypeDropDown. */
 export default function Planner() {
   const { user } = useAuth();
   const [finish, setFinish] = useState(false);
@@ -56,6 +57,8 @@ export default function Planner() {
       y1s1modtypes: modtypes,
     });
 
+    y1s1modtypes = modtypes;
+
     setFinish(!finish);
   }
 
@@ -65,6 +68,8 @@ export default function Planner() {
     await updateDoc(docRef, {
       y1s2modtypes: modtypes,
     });
+
+    y1s2modtypes = modtypes;
 
     setFinish(!finish);
   }

@@ -64,7 +64,7 @@ function AddModReview() {
             <span>Professor:</span>
           </Grid>
           <Grid item xs={10}>
-            <TextField required label="Write professor's name here..." inputRef={profRef} />
+            <TextField required label="Write professor's full name here..." inputRef={profRef} />
           </Grid>
 
           <Grid item xs={2}>
