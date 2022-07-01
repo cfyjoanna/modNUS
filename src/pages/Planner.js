@@ -13,6 +13,7 @@ var y1s2modtypes = [];
 var coreMCs = [];
 var ues = [];
 
+/* Children components: components PlannerMods (SearchBar) > ModuleList > ModTypeDropDown. */
 export default function Planner() {
   const { user } = useAuth();
   const [finish, setFinish] = useState(false);
