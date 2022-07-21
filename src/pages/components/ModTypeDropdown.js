@@ -10,6 +10,10 @@ export default function ModTypeDropdown( { credits, modtypes, index, sem, update
   }
   const [modType, setModType] = useState(startingType);
 
+  if (modType !== startingType) {
+    setModType(startingType);
+  }
+
   const handleChange = (event) => {
     if (modType === 1) {
       updateCoreMCs(-credits, sem);
