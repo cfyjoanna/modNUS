@@ -24,7 +24,7 @@ export default function Reviews() {
   async function handleSearch() {
     setReviews([]);
     setIds([]);
-    const reviewQuery = query(collection(db, "test"), where("module", "==", moduleNameRef.current.value));
+    const reviewQuery = query(collection(db, "modreviews"), where("module", "==", moduleNameRef.current.value));
 
     const querySnapshot = await getDocs(reviewQuery);
     querySnapshot.forEach((doc) => {

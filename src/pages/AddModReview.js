@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useAuth } from '../hooks/useAuth';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebaseConfig';
 
 import StarRating from './components/StarRating';
@@ -29,8 +29,9 @@ function AddModReview() {
     // Prevents page from refreshing.
     event.preventDefault();
     // Add a new document with user's name and inputted text.
-    const docRef = async () => { await addDoc(collection(db, "test"), {
+    const docRef = async () => { await setDoc(doc(db, "modreviews", moduleNameRef.current.value + user.uid), {
       user: user.displayName,
+      uid: user.uid,
       module: moduleNameRef.current.value,
       prof: profRef.current.value,
       sem: sem,
