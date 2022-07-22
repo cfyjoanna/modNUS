@@ -17,6 +17,7 @@ import AddModReview from './pages/AddModReview';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Planner from './pages/Planner';
+import PastReviews from './pages/PastReviews';
 import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/timetable/TimetableGenerator';
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="pastreviews" element={<PastReviews />} />
         <Route path="generator" element={<TimetableGenerator />} />
         <Route path="planner" element={<Planner />} />
         <Route path="reviews" element={<Reviews />} />
