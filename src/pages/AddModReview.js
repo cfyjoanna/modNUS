@@ -51,6 +51,9 @@ function AddModReview() {
   return (
     <div className="wrapper">
       <h2>Add Review</h2>
+      <span>If you have already submitted a review for a specific mod, submitting another review for the
+        same mod will replace your previous review.
+      </span>
       <form onSubmit={handleSubmit}>
         <Grid container alignItems="center" spacing={2}>
           {/* Module details inputs */}
