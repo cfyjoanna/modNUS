@@ -18,28 +18,39 @@ import Rating from '@mui/material/Rating';
 import LabelledRatingReadOnly from './components/LabelledRatingReadOnly.js';
 
 import { Link } from 'react-router-dom';
-import { collection, getDocs, query, where } from 'firebase/firestore'; 
+import { collection, getDocs, query, where, doc, deleteDoc } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig';
 
-var reviews = [];
+var reviewsData = [];
 
 export default function PastReviews() {
   const { user } = useAuth();
   const pfp = user.photoURL;
   // eslint-disable-next-line
   const [finish, setFinish] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
   const getReviews = async () => {
     const reviewQuery = query(collection(db, "modreviews"), where("uid", "==", user.uid));
 
     const querySnapshot = await getDocs(reviewQuery);
-    reviews = querySnapshot.docs.map(doc => doc.data());
+    reviewsData = querySnapshot.docs.map(doc => {
+      return { ...doc.data(), key: doc.id };
+    });
+    setReviews(reviewsData);
   }
 
   useEffect(() => {
     getReviews().then(result => setFinish(true));
     // eslint-disable-next-line
   }, []);
+
+  const handleDelete = (docId) => {
+    const deleting = async () => {
+      await deleteDoc(doc(db, "modreviews", docId));
+    }
+    deleting().then(result => window.location.reload());
+  }
 
   return(
     <div className="wrapper">
@@ -83,7 +94,7 @@ export default function PastReviews() {
                   </Grid>
                   <Grid item xs={1}>
                     <Tooltip title="Delete review">
-                      <IconButton aria-label="Example">
+                      <IconButton aria-label="Example" onClick={() => handleDelete(review.key)}>
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
