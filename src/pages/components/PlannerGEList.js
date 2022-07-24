@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -6,8 +6,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function PlannerGEList() {
+export default function PlannerGEList({ ges, updateGes }) {
   const [checked, setChecked] = useState([]);
+
+  useEffect(() => {
+    setChecked(ges);
+  }, [ges])
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -20,6 +24,7 @@ export default function PlannerGEList() {
     }
 
     setChecked(newChecked);
+    updateGes(newChecked);
   };
 
   return (

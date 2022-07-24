@@ -73,7 +73,8 @@ function useProvideAuth() {
         const details = getAdditionalUserInfo(result);
         if(details.isNewUser) {
           setDoc(doc(db, "users", result.user.uid),
-            {coremcs: [0, 0, 0], ues: [0, 0, 0], y1s1: [], y1s1modtypes: [], y1s2: [], y1s2modtypes: [] })
+            {coremcs: [0, 0, 0], ues: [0, 0, 0], y1s1: [], y1s1modtypes: [], y1s2: [], y1s2modtypes: [],
+              ges: [] })
         }
       });
   };

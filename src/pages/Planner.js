@@ -13,6 +13,7 @@ var y1s1modtypes = [];
 var y1s2modtypes = [];
 var coreMCs = [];
 var ues = [];
+var ges = [];
 
 /* Children components: components PlannerMods (SearchBar) > ModuleList > ModTypeDropDown. */
 export default function Planner() {
@@ -30,6 +31,7 @@ export default function Planner() {
       y1s2modtypes = docSnap.data().y1s2modtypes;
       coreMCs = docSnap.data().coremcs;
       ues = docSnap.data().ues;
+      ges = docSnap.data().ges;
     }
     getMods().then(result => setFinish(true));
     // eslint-disable-next-line
@@ -112,6 +114,18 @@ export default function Planner() {
 
     setFinish(!finish);
   }
+
+  const updateGes = async (newGes) => {
+    const docRef = doc(db, "users", user.uid);
+
+    await updateDoc(docRef, {
+      ges: newGes,
+    });
+
+    ges = newGes;
+
+    setFinish(!finish);
+  }
   
   return(
     <div className="wrapper">
@@ -134,9 +148,9 @@ export default function Planner() {
           <span>{coreMCs[0]} core MCs</span>
           <br />
           <span>{ues[0]} UEs</span>
-          
+
           <h3>GEs Cleared</h3>
-          <PlannerGEList />
+          <PlannerGEList ges={ges} updateGes={updateGes}/>
         </Grid>
       </Grid>
     </div>
