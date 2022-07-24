@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PlannerMods from './components/PlannerMods';
+import PlannerGEList from './components/PlannerGEList';
 import { useAuth } from '../hooks/useAuth';
 import { db } from '../config/firebaseConfig';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
@@ -133,6 +134,9 @@ export default function Planner() {
           <span>{coreMCs[0]} core MCs</span>
           <br />
           <span>{ues[0]} UEs</span>
+          
+          <h3>GEs Cleared</h3>
+          <PlannerGEList />
         </Grid>
       </Grid>
     </div>
