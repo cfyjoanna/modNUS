@@ -1,7 +1,9 @@
 import React from 'react';
 import ModTypeDropdown from './ModTypeDropdown';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function ModuleList({ mods, modtypes, sem, updateCoreMCs, updateUes, updateModtypes }) {
+export default function ModuleList({ mods, modtypes, sem, deleteMod, updateCoreMCs, updateUes, updateModtypes }) {
   let counter = 0;
 
   return(
@@ -12,7 +14,14 @@ export default function ModuleList({ mods, modtypes, sem, updateCoreMCs, updateU
         <div className="module-box" key={mod}>
           <ModTypeDropdown credits={currMod.credits} modtypes={modtypes} index={counter - 1} sem={sem}
             updateCoreMCs={updateCoreMCs} updateUes={updateUes} updateModtypes={updateModtypes} />
+
           {counter}. {mod} {currMod.title}, {currMod.credits} MCs
+
+          <div className="right-wrapper">
+            <IconButton edge="end" onClick={() => deleteMod(mod, currMod.credits)}>
+              <DeleteIcon />
+            </IconButton>
+          </div>
         </div>
       )
     })

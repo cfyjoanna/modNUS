@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 /* Basically the same as SearchModules, except with added function of retrieving data from the database. */
 export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMCs, updateUes, updateModtypes }) {;
   const [modulesChosen, setModulesChosen] = useState(mods);
-  const [finalModtypes, setFinalModtypes] = useState([]);
+  const [finalModtypes, setFinalModtypes] = useState([]); // to initialise modtypes from database
   const [open, setOpen] = useState(false); // module added snackbar
   const [added, setAdded] = useState(false); // module already added snackbar
   const moduleNameRef = useRef();
@@ -97,6 +97,26 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
     </Fragment>
   );
 
+  // to pass to ModuleList for deletion of a single module
+  const deleteOneModule = (mod, mcs) => {
+    const delIndex = modulesChosen.indexOf(mod);
+    const modtype = modtypes[delIndex];
+    var tempMods = modulesChosen;
+
+    tempMods.splice(delIndex, 1);
+    modtypes.splice(delIndex, 1);
+
+    setModulesChosen(tempMods);
+    updater(tempMods);
+    updateModtypes(modtypes);
+
+    if (modtype === 1) {
+      updateCoreMCs(-mcs, sem);
+    } else if (modtype === 2) {
+      updateUes(-mcs, sem);
+    }
+  }
+
   return (
     <>
       <SearchBar refHook={moduleNameRef} />
@@ -104,7 +124,7 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
       <span> </span>
       <Button variant="contained" color="primary" onClick={handleClear}>Clear</Button>
       <div>
-       <ModuleList mods={modulesChosen} modtypes={finalModtypes} sem={sem}
+       <ModuleList mods={modulesChosen} modtypes={finalModtypes} sem={sem} deleteMod={deleteOneModule}
         updateCoreMCs={updateCoreMCs} updateUes={updateUes} updateModtypes={updateModtypes} />
       </div>
       <Snackbar
