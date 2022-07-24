@@ -103,16 +103,16 @@ function App() {
                   
               {/* Burger button dropdown here*/}
                   
-              <Link to='/' style={{ textDecoration: 'none' }}>
+              <Link to='/' style={{ textDecoration: 'none', color: 'black' }}>
                 <MenuItem onClick={handleBurgClose}>Home</MenuItem>
               </Link>
-              <Link to='/generator' style={{ textDecoration: 'none' }}>
+              <Link to='/generator' style={{ textDecoration: 'none', color: 'black' }}>
                 <MenuItem onClick={handleBurgClose}>Timetable Generator</MenuItem>
               </Link>
-              <Link to='/planner' style={{ textDecoration: 'none' }}>
+              <Link to='/planner' style={{ textDecoration: 'none', color: 'black' }}>
                 <MenuItem onClick={handleBurgClose}>Planner</MenuItem>
               </Link>
-              <Link to='/reviews' style={{ textDecoration: 'none' }}>
+              <Link to='/reviews' style={{ textDecoration: 'none', color: 'black' }}>
                 <MenuItem onClick={handleBurgClose}>Reviews</MenuItem>
               </Link>
             </Menu>
@@ -151,7 +151,7 @@ function App() {
 
                   {/* Profile button dropdown here*/}
                   
-                  <Link to='/profile' style={{ textDecoration: 'none' }}>
+                  <Link to='/profile' style={{ textDecoration: 'none', color: 'black' }}>
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
                   </Link>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
