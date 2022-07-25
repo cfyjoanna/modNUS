@@ -7,6 +7,14 @@ body, #root {
   margin: 40px;
 }
 
+.center-wrapper {
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
 .right-wrapper {
   margin-left: auto; 
   margin-right: 0;

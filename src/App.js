@@ -21,6 +21,7 @@ import PastReviews from './pages/PastReviews';
 import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/timetable/TimetableGenerator';
+import ReviewSubmitted from './pages/ReviewSubmitted';
 
 function App() {
   const { user } = useAuth();
@@ -28,7 +29,7 @@ function App() {
   if(!user) {
     return <Login />
   }
-
+  
   return (
     <div>
       <MenuAppBar />
@@ -40,6 +41,7 @@ function App() {
         <Route path="planner" element={<Planner />} />
         <Route path="reviews" element={<Reviews />} />
         <Route path="addmodreview" element={<AddModReview />} />
+        <Route path="reviewsubmitted" element={<ReviewSubmitted />} />
       </Routes>
     </div>
   );
