@@ -15,7 +15,7 @@ export default function LabelledRatingReadOnly({ value }) {
   return (
     <Box
       sx={{
-        width: 200,
+        width: 300,
         display: 'flex',
         alignItems: 'center',
       }}
