@@ -13,6 +13,13 @@ import ArticleIcon from '@mui/icons-material/Article';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import Tooltip from '@mui/material/Tooltip';
 import Rating from '@mui/material/Rating';
 import LabelledRatingReadOnly from './components/LabelledRatingReadOnly.js';
@@ -21,7 +28,7 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, deleteDoc } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig';
 
-var reviewsData = [];
+var reviewToDelete = "";
 
 export default function PastReviews() {
   const { user } = useAuth();
@@ -29,15 +36,15 @@ export default function PastReviews() {
   // eslint-disable-next-line
   const [finish, setFinish] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const getReviews = async () => {
     const reviewQuery = query(collection(db, "modreviews"), where("uid", "==", user.uid));
 
     const querySnapshot = await getDocs(reviewQuery);
-    reviewsData = querySnapshot.docs.map(doc => {
+    setReviews(querySnapshot.docs.map(doc => {
       return { ...doc.data(), key: doc.id };
-    });
-    setReviews(reviewsData);
+    }))
   }
 
   useEffect(() => {
@@ -51,6 +58,17 @@ export default function PastReviews() {
     }
     deleting().then(result => window.location.reload());
   }
+
+  // delete alert popup
+  const handleClickOpen = (docId) => {
+    reviewToDelete = docId;
+
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return(
     <div className="wrapper">
@@ -94,7 +112,7 @@ export default function PastReviews() {
                   </Grid>
                   <Grid item xs={1}>
                     <Tooltip title="Delete review">
-                      <IconButton aria-label="Example" onClick={() => handleDelete(review.key)}>
+                      <IconButton aria-label="Example" onClick={() => handleClickOpen(review.key)}>
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
@@ -131,6 +149,34 @@ export default function PastReviews() {
           })}
         </Grid>
       </Grid>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete this review?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Deleted reviews cannot be recovered!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={() => handleDelete(reviewToDelete)}>
+            Delete
+          </Button>
+          <Button onClick={handleClose} autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

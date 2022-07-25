@@ -61,6 +61,12 @@ export default function Reviews() {
         </Tooltip>
       </Link>
 
+      {reviews.length === 0 && 
+        <div className="login-wrapper">
+          <span>No reviews found.</span>
+        </div>
+      }
+
       {/* Printing out reviews from database*/}
       {reviews.map((review) => {
         return(
