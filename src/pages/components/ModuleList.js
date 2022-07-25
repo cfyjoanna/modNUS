@@ -34,9 +34,9 @@ const modules = [
     credits: 4,
     title: 'Programming Methodology',
     sections: {
-      '- - LEC': {
+      '- - LEC 01': {
         days: [2, 3],
-        startTimes: ['11:30', '16:30'],
+        startTimes: ['11:00', '16:30'],
         endTimes: ['12:15', '18:15'],
         locations: ['Online Teaching', 'Online Teaching'],
       },
@@ -45,6 +45,26 @@ const modules = [
         startTimes: ['16:30'],
         endTimes: ['17:15'],
         locations: ['Online Teaching'],
+      },
+    },
+  },
+  {
+    courseId: 'CS1101S',
+    title: 'Programming Methodology',
+    earliestTime: 11.5,
+    latestTime: 18,
+    sections: {
+      '- - LEC 02': {
+        days: [2, 3],
+        startTimes: ['11:30', '16:30'],
+        endTimes: ['12:30', '18:00'],
+        locations: ['COM1-SR1', 'COM3-LT17'],
+      },
+      '-L01 - LAB': {
+        days: [2],
+        startTimes: ['16:30'],
+        endTimes: ['17:30'],
+        locations: ['AS6'],
       },
     },
   },
