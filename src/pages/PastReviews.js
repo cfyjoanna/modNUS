@@ -21,8 +21,6 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, deleteDoc } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig';
 
-var reviewsData = [];
-
 export default function PastReviews() {
   const { user } = useAuth();
   const pfp = user.photoURL;
@@ -34,10 +32,9 @@ export default function PastReviews() {
     const reviewQuery = query(collection(db, "modreviews"), where("uid", "==", user.uid));
 
     const querySnapshot = await getDocs(reviewQuery);
-    reviewsData = querySnapshot.docs.map(doc => {
+    setReviews(querySnapshot.docs.map(doc => {
       return { ...doc.data(), key: doc.id };
-    });
-    setReviews(reviewsData);
+    }))
   }
 
   useEffect(() => {
