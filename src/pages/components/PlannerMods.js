@@ -36,6 +36,7 @@ export default function PlannerMods({ updater, mods, modtypes, sem, updateCoreMC
         setOpen(true);
         return [...prevMods, modName];
       } else {
+        // if already added, snackbar appears
         setAdded(true);
         return prevMods;
       }
