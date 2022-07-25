@@ -1,2 +1,22 @@
+.start-time {
+    position: static;
+}
 
+.generator-block {
+    position: static;
+    bottom: 100px;
+    left: 0px;
+    height: auto;
+}
+
+.search-modules {
+    position: static;
+    bottom: 200px;
+    height: auto;
+}
+
+.generate-button {
+    position: static;
+    bottom: 200px;
+}
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import './Popup.css'
+import './NoModulesPopup.css'
 
-export default function Popup(props) {
+export default function NoModulesPopup(props) {
     return(props.trigger) ? 
         <div className="popup">
             <div className="popup-inner">
                 { props.children }
-                Error! No possible timetable! Please choose a different set of modules/settings!
+                Please add modules before pressing generate!
                 <button className="close-btn" onClick={() => props.setTrigger(false)}>close</button>
                 <br />
                 <br />

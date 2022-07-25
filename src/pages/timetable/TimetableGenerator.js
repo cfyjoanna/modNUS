@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useState } from 'react';
 import { Button } from "@mui/material";
 import SearchModules from '../components/SearchModules.js';
@@ -10,13 +9,9 @@ import Carousel from './Carousel.js';
 import TimeSearchBar from './TimeSearchBar.js';
 import Popup from '../Popup/Popup.js';
 import './TimeTableGenerator.css';
+import { Switch } from "@mui/material";
+import NoModulesPopup from '../components/NoModulesPopUp/NoModulesPopUp.js';
 
-const Main = styled("div")`
-  font-family: sans-serif;
-  background: #f0f0f0;
-  height: 410vh;
-  padding: 0;
-`;
 
 const allEventGroups = [
   {
@@ -25,10 +20,30 @@ const allEventGroups = [
     earliestTime: 11,
     latestTime: 18,
     sections: {
-      '- - LEC': {
+      '- - LEC 01': {
         days: [2, 3],
-        startTimes: ['11:30', '16:30'],
+        startTimes: ['11:00', '16:30'],
         endTimes: ['12:00', '18:00'],
+        locations: ['COM1-SR1', 'COM3-LT17'],
+      },
+      '-L01 - LAB': {
+        days: [2],
+        startTimes: ['16:30'],
+        endTimes: ['17:30'],
+        locations: ['AS6'],
+      },
+    },
+  },
+  {
+    courseId: 'CS1101S',
+    title: 'Programming Methodology',
+    earliestTime: 12,
+    latestTime: 18,
+    sections: {
+      '- - LEC 02': {
+        days: [2, 3],
+        startTimes: ['12:00', '17:00'],
+        endTimes: ['13:00', '18:00'],
         locations: ['COM1-SR1', 'COM3-LT17'],
       },
       '-L01 - LAB': {
@@ -183,6 +198,7 @@ const allEventGroups = [
 
 export default function TimetableGenerator() {
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [noModsPopup, setNoModsPopup] = useState(false);
   const moduleTypedRef = useRef();
   
   const [modulesChosen, setModulesChosen] = useState([]);
@@ -203,12 +219,35 @@ export default function TimetableGenerator() {
     let latestTime = 8;
     const startTime = isNaN(parseInt(startTimeRef.current.value)) ? 6 : parseInt(startTimeRef.current.value);
     const endTime = isNaN(parseInt(endTimeRef.current.value)) ? 20 : parseInt(endTimeRef.current.value);
-
+    var weekTimings = [];
+    
+    if (modulesChosen.length === 0) {
+      setNoModsPopup(true);
+    }
     const eventsGroup = modulesChosen.map(mod => {
-      const currEvent = allEventGroups.find((option) => 
-        option.courseId === mod && (startTime <= option.earliestTime && endTime >= option.latestTime)
+      const testbtb = e => {
+        let backtoback = false;
+        Object.entries(e.sections).forEach(([k, v]) => {
+          (v.days || []).forEach((day, i) => {
+            const [sHour, sMinute] = v.startTimes[i].split(':');
+            const [eHour, eMinute] = v.endTimes[i].split(':');
+            const sTime = +sHour + +sMinute / 60;
+            const eTime = +eHour + +eMinute / 60;
+            if (typeof(weekTimings.find((arr) => arr[0] === day && ((arr[1] === sTime || arr[2] === sTime) || (arr[1] !== eTime || arr[2] !== eTime)))) !== 'undefined') {
+              console.log(sTime)
+              console.log(weekTimings);
+              backtoback = true;
+            }
+          })
+        })
+        console.log("testbtb")
+        console.log(backtoback)
+        return backtoback;
+      };
+    const currEvent = allEventGroups.find((option) => 
+        option.courseId === mod 
+            && ((startTime <= option.earliestTime && endTime >= option.latestTime) && (btbchecked || !testbtb(option)))
       );
-      //console.log(earliestTime);
       console.log(currEvent);
       if (typeof(currEvent) === 'undefined') {
         setButtonPopup(true);
@@ -217,11 +256,25 @@ export default function TimetableGenerator() {
       } else {
         earliestTime = Math.min(earliestTime, currEvent.earliestTime);
         latestTime = Math.max(latestTime, currEvent.latestTime);
+        Object.entries(currEvent.sections).forEach(([k, v]) => {
+          (v.days || []).forEach((day, i) => {
+            const [sHour, sMinute] = v.startTimes[i].split(':');
+            const [eHour, eMinute] = v.endTimes[i].split(':');
+            const sTime = +sHour + +sMinute / 60;
+            const eTime = +eHour + +eMinute / 60;
+            weekTimings.push([day, sTime, eTime]);
+          })
+        })
         return currEvent;
       }
     });
     
-    if (startTime >= endTime || (earliestTime < startTime || latestTime > endTime)) {
+    if (!btbchecked) {
+      weekTimings.sort();
+      console.log("sorted");
+      console.log(weekTimings);
+    }
+    if ((startTime >= endTime || (earliestTime < startTime || latestTime > endTime))) {
       setButtonPopup(true);
       possibleTimetable = false;
     } else {
@@ -239,44 +292,48 @@ export default function TimetableGenerator() {
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
     };
+
+    const [btbchecked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
+  
   
   return(
     <>
       <h2 id="h2" align={"center"}>Timetable Generator</h2>
         
-      <Main>
-        <div className="starttime"> 
+      
+      <div className="start-time"> 
           <TimeSearchBar refHook={startTimeRef} label="start time"></TimeSearchBar>
           <TimeSearchBar refHook={endTimeRef} label="end time"></TimeSearchBar>
-        </div>
-
+            Allow Back-to-Back classes <Switch 
+            checked={btbchecked}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+          /> 
+      </div>
+      
+      <div className='generator-block'>
         <Carousel images={timetables}/>
-      </Main>
-      {/*will fix the css later*/}
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-        <div className='search-modules'>
+      </div>
+
+  
+      <div className='search-modules'>
         <SearchModules 
           refHookForModTyped={moduleTypedRef} 
           modulesChosen={modulesChosen} 
           setModulesChosen={setModulesChosen}  />
-        <div className="container" align="right">
-          <Button variant="contained" color="primary" onClick={handleTimeTables}>
-            Generate
-          </Button>
-        </div>
-        </div>
+      </div>
+      <div className="generate-button" align="right">
+        <Button variant="contained" color="primary" onClick={handleTimeTables}>
+           Generate
+         </Button>
+       </div>
+       
+        <NoModulesPopup trigger={noModsPopup} setTrigger={setNoModsPopup}></NoModulesPopup>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}> </Popup>
     </>
   );
