@@ -165,7 +165,13 @@ export default function PastReviews() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleDelete(reviewToDelete)}>Delete</Button>
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={() => handleDelete(reviewToDelete)}>
+            Delete
+          </Button>
           <Button onClick={handleClose} autoFocus>
             Cancel
           </Button>
