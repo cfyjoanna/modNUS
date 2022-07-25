@@ -49,6 +49,8 @@ export default function Profile() {
         </Grid>
         <Grid item xs={9}>
           <h3>{username}</h3>
+          <span style={{fontWeight: 'bold'}}>Email: </span>
+          <span>{user.email}</span>
         </Grid>
       </Grid>
     </div>
