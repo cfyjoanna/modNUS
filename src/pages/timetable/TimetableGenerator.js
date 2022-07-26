@@ -351,11 +351,9 @@ export default function TimetableGenerator() {
 
   const [btbchecked, setChecked] = React.useState(true);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setChecked(event.target.checked);
   };
-
-  
   
   return(
     <>
@@ -381,13 +379,16 @@ export default function TimetableGenerator() {
         <SearchModules 
           refHookForModTyped={moduleTypedRef} 
           modulesChosen={modulesChosen} 
-          setModulesChosen={setModulesChosen}  />
+          setModulesChosen={setModulesChosen} />
       </div>
-      <div className="generate-button" align="right">
-        <Button variant="contained" color="primary" onClick={handleTimeTables}>
-           Generate
-         </Button>
-       </div>
+      
+        <div className="generate-button" align="right">
+          <Button variant="contained" color="primary" onClick={handleTimeTables}>
+            Generate
+          </Button>
+        </div>
+      
+      
        
         <NoModulesPopup trigger={noModsPopup} setTrigger={setNoModsPopup}></NoModulesPopup>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}> </Popup>

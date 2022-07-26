@@ -2,24 +2,33 @@ import React from 'react';
 
 export default function TimetableModuleList({ mods }) {
   let counter = 0;
+  let mcs = 0;
   
-  return(
+  return([
     mods.map(mod => {
       counter = counter + 1;
       const currMod = modules.find(obj => obj.courseId === mod);
-      return typeof(currMod) === 'undefined' ? "" : (
+      if (typeof(currMod) === 'undefined') {
+        return "";
+      } else {
+        mcs += currMod.credits;
+        return (
         <div className="module-box" key={mod}>
-          {counter}. {mod} {currMod.title}
-        </div>
-      )
+          {counter}. {mod} {currMod.title}, {currMod.credits} MCs
+        </div> );
+      }
     })
-  );
+    ,<div className= "total-mcs"> 
+      Total MCs: {mcs}
+    </div> 
+  ]);
 }
 
 const modules = [
   {
     courseId: 'CS1101S',
     title: 'Programming Methodology',
+    credits: 4,
     sections: {
       '- - LEC 01': {
         days: [2, 3],
@@ -38,8 +47,7 @@ const modules = [
   {
     courseId: 'CS1101S',
     title: 'Programming Methodology',
-    earliestTime: 11.5,
-    latestTime: 18,
+    credits: 4,
     sections: {
       '- - LEC 02': {
         days: [2, 3],
@@ -58,6 +66,7 @@ const modules = [
   {
     courseId: 'CS2040S',
     title: 'Data Structures and Algorithms',
+    credits: 4,
     sections: {
       'A - LEC': {
         days: [1, 3],
@@ -76,6 +85,7 @@ const modules = [
   {
     courseId: 'GEA1000',
     title: 'Quantitative Reasoning with Data',
+    credits: 4,
     sections: {
       'BEC1 - CLW': {
         days: [2, 4],
@@ -88,6 +98,7 @@ const modules = [
   {
     courseId: 'ST2201E',
     title: 'Statistics for Engineers',
+    credits: 4,
     sections: {
       'B - LEC': {
         days: [1],
@@ -106,6 +117,7 @@ const modules = [
   {
     courseId: 'GEC1005',
     title: 'Cultural Borrowing: China and Japan',
+    credits: 4,
     sections: {
       '-A01 - ASB': {
         days: [5],
@@ -118,6 +130,7 @@ const modules = [
   {
     courseId: 'DSA1701',
     title: 'Data Exploration',
+    credits: 4,
     sections: {
       '- - LEC': {
         days: [4],
@@ -130,6 +143,7 @@ const modules = [
   {
     courseId: 'GET1685',
     title: 'Drugs and Culture',
+    credits: 4,
     sections: {
       '- - LEC': {
         days: [4],
@@ -142,6 +156,7 @@ const modules = [
   {
     courseId: 'LAJ1201',
     title: 'Japanese 1',
+    credits: 4,
     sections: {
       '': {
         days: [7],
@@ -154,6 +169,7 @@ const modules = [
   {
     courseId: 'LAJ2201',
     title: 'Japanese 2',
+    credits: 4,
     sections: {
       '': {
         days: [6],

@@ -20,3 +20,11 @@
     bottom: 200px;
 }
 
+.page-bottom {
+    position: static;
+}
+
+.page-bottom .mc-count {
+    position: relative;
+    bottom: 20px;
+}
