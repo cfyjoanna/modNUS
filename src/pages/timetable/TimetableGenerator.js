@@ -11,6 +11,8 @@ import Popup from '../Popup/Popup.js';
 import './TimeTableGenerator.css';
 import { Switch } from "@mui/material";
 import NoModulesPopup from '../components/NoModulesPopUp/NoModulesPopUp.js';
+import HelpPopup from './HelpPopup/HelpPopup.js';
+import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
 
 
 const allEventGroups = [
@@ -199,6 +201,7 @@ const allEventGroups = [
 export default function TimetableGenerator() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [noModsPopup, setNoModsPopup] = useState(false);
+  const [helpPopup, setHelpPopup] = useState(false);
   const moduleTypedRef = useRef();
   
   const [modulesChosen, setModulesChosen] = useState([]);
@@ -357,8 +360,12 @@ export default function TimetableGenerator() {
   
   return(
     <>
-      <h2 id="h2" align={"center"}>Timetable Generator</h2>
-        
+      <h2 id="header" align={"center"}>Timetable Generator
+        <Button onClick={() => setHelpPopup(true)}>
+          <HelpTwoToneIcon></HelpTwoToneIcon>
+        </Button>
+      </h2>
+      
       
       <div className="start-time"> 
           <TimeSearchBar refHook={startTimeRef} label="start time"></TimeSearchBar>
@@ -389,7 +396,7 @@ export default function TimetableGenerator() {
         </div>
       
       
-       
+        <HelpPopup trigger={helpPopup} setTrigger={setHelpPopup}></HelpPopup>
         <NoModulesPopup trigger={noModsPopup} setTrigger={setNoModsPopup}></NoModulesPopup>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}> </Popup>
     </>

@@ -13,10 +13,11 @@
 
 .popup-inner {
     position: fixed;
-    top: 250px;
+    top: 95px;
     padding:32px;
-    width: 70%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 700px;
+    height: 330px;
     background-color: #FFF;
 
     display: flex;
@@ -24,8 +25,9 @@
     align-items: center;
 }
 
-.popup-inner.close-btn {
-    position: static;
-    top: 16px;
-    right: 0px;
+.close-btn {
+    position: fixed;
+    top: 100px;
+    right: 260px;
 }
+
