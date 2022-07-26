@@ -45,7 +45,7 @@ function AddModReview() {
     reviewRef.current.value = null;
     moduleNameRef.current.value = null;
     // Redirect to reviews page after submission.
-    navigate("../reviews");
+    navigate("../reviewsubmitted");
   }
   
   return (
