@@ -212,7 +212,8 @@ export default function TimetableGenerator() {
 
   const startTimeRef = useRef();
   const endTimeRef = useRef();
-  let possibleTimetable = true;
+  let possibleTimetable1 = true;
+  let possibleTimetable2 = false;
 
   const handleTimeTables = e => {
     let earliestTime = 20;
@@ -224,7 +225,7 @@ export default function TimetableGenerator() {
     if (modulesChosen.length === 0) {
       setNoModsPopup(true);
     }
-    const eventsGroup = modulesChosen.map(mod => {
+    const eventsGroup1 = modulesChosen.map(mod => {
       const testbtb = e => {
         let backtoback = false;
         Object.entries(e.sections).forEach(([k, v]) => {
@@ -251,9 +252,53 @@ export default function TimetableGenerator() {
       console.log(currEvent);
       if (typeof(currEvent) === 'undefined') {
         setButtonPopup(true);
-        possibleTimetable = false;
+        possibleTimetable1 = false;
         return {};
       } else {
+        earliestTime = Math.min(earliestTime, currEvent.earliestTime);
+        latestTime = Math.max(latestTime, currEvent.latestTime);
+        Object.entries(currEvent.sections).forEach(([k, v]) => {
+          (v.days || []).forEach((day, i) => {
+            const [sHour, sMinute] = v.startTimes[i].split(':');
+            const [eHour, eMinute] = v.endTimes[i].split(':');
+            const sTime = +sHour + +sMinute / 60;
+            const eTime = +eHour + +eMinute / 60;
+            weekTimings.push([day, sTime, eTime]);
+          })
+        })
+        return currEvent;
+      }
+    });
+
+    const eventsGroup2 = eventsGroup1.map(event => {
+      const testbtb = e => {
+        let backtoback = false;
+        Object.entries(e.sections).forEach(([k, v]) => {
+          (v.days || []).forEach((day, i) => {
+            const [sHour, sMinute] = v.startTimes[i].split(':');
+            const [eHour, eMinute] = v.endTimes[i].split(':');
+            const sTime = +sHour + +sMinute / 60;
+            const eTime = +eHour + +eMinute / 60;
+            if (typeof(weekTimings.find((arr) => arr[0] === day && ((arr[1] === sTime || arr[2] === sTime) || (arr[1] !== eTime || arr[2] !== eTime)))) !== 'undefined') {
+              console.log(sTime)
+              console.log(weekTimings);
+              backtoback = true;
+            }
+          })
+        })
+        console.log("testbtb")
+        console.log(backtoback)
+        return backtoback;
+      };
+    const currEvent = allEventGroups.find((option) => 
+        option.courseId === event.courseId 
+        && option !== event
+            && ((startTime <= option.earliestTime && endTime >= option.latestTime) && (btbchecked || !testbtb(option)))
+      );
+      if (typeof(currEvent) === 'undefined') {
+        return event;
+      } else {
+        possibleTimetable2 = true;
         earliestTime = Math.min(earliestTime, currEvent.earliestTime);
         latestTime = Math.max(latestTime, currEvent.latestTime);
         Object.entries(currEvent.sections).forEach(([k, v]) => {
@@ -276,24 +321,35 @@ export default function TimetableGenerator() {
     }
     if ((startTime >= endTime || (earliestTime < startTime || latestTime > endTime))) {
       setButtonPopup(true);
-      possibleTimetable = false;
+      possibleTimetable1 = false;
+      possibleTimetable2 = false;
     } else {
       setTimeTables(events => {
         return [ 
           <TimeTable 
-            eventGroups={possibleTimetable ? eventsGroup : []} 
+            eventGroups={possibleTimetable1 ? eventsGroup1 : []} 
             configs={{
               numOfDays: 5,
               startHour: startTime,
               endHour: endTime,
             }}
-           />];
+           />,
+           <TimeTable 
+           eventGroups={possibleTimetable2 ? eventsGroup2 : []} 
+           configs={{
+             numOfDays: 5,
+             startHour: startTime,
+             endHour: endTime,
+           }}
+          />];
       })}
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
     };
 
-    const [btbchecked, setChecked] = React.useState(true);
+  
+
+  const [btbchecked, setChecked] = React.useState(true);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
