@@ -23,27 +23,41 @@ import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/timetable/TimetableGenerator';
 import ReviewSubmitted from './pages/ReviewSubmitted';
 
+import { Oval } from 'react-loading-icons'
+
 function App() {
   const { user } = useAuth();
+  const [loading, setLoading] = React.useState(true);
 
-  if(!user) {
-    return <Login />
-  }
+  React.useEffect(() => {
+    setTimeout(() => setLoading(false), 500);
+  }, [])
   
   return (
-    <div>
-      <MenuAppBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="pastreviews" element={<PastReviews />} />
-        <Route path="generator" element={<TimetableGenerator />} />
-        <Route path="planner" element={<Planner />} />
-        <Route path="reviews" element={<Reviews />} />
-        <Route path="addmodreview" element={<AddModReview />} />
-        <Route path="reviewsubmitted" element={<ReviewSubmitted />} />
-      </Routes>
-    </div>
+    <>
+      {loading === false ? (
+        <>
+          { !user ? <Login /> :
+            <div>
+              <MenuAppBar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="pastreviews" element={<PastReviews />} />
+                <Route path="generator" element={<TimetableGenerator />} />
+                <Route path="planner" element={<Planner />} />
+                <Route path="reviews" element={<Reviews />} />
+                <Route path="addmodreview" element={<AddModReview />} />
+                <Route path="reviewsubmitted" element={<ReviewSubmitted />} />
+              </Routes>
+            </div>}
+        </>
+      ) : (
+        <div className="center-wrapper">
+          <Oval stroke="#06bcee"/>
+        </div>
+      )}
+    </>
   );
 
   // entirety of below is for navbar
