@@ -9,8 +9,10 @@ function StarRating({ setRating }) {
         name="simple-controlled"
         value={value}
         onChange={(event, newValue) => {
-          setValue(newValue);
-          setRating(newValue);
+          if (newValue !== null) {
+            setValue(newValue);
+            setRating(newValue);
+          }
         }}
     />
   )

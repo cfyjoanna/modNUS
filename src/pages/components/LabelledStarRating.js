@@ -30,8 +30,10 @@ export default function LabelledStarRating({ setRating }) {
         value={value}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
-          setValue(newValue);
-          setRating(newValue);
+          if (newValue !== null) {
+            setValue(newValue);
+            setRating(newValue);
+          }
         }}
         onChangeActive={(event, newHover) => {
           setHover(newHover);
