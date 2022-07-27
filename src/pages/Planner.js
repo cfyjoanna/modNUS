@@ -131,8 +131,6 @@ export default function Planner() {
     <div className="wrapper">
       <h2>Planner</h2>
 
-      <span>If the saved module types are not appearing, try refreshing the page.</span>
-
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <h3>Y1S1</h3>
