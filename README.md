@@ -18,9 +18,13 @@ Enter modules into module list at the bottom of the page and click generate to g
 
 ### Planner
 
+Note that in the module search bar, only the first 25 suggestions are displayed. This is to prevent lag from the sheer number of modules retrieved from the API.
+
 Enter modules into the plan. Modular credits are automatically awarded upon changing module type.
 
 ### Module Reviews
+
+Note that in the module search bar, only the first 25 suggestions are displayed. This is to prevent lag from the sheer number of modules retrieved from the API.
 
 Enter a module name and click on the search icon to find reviews.
 
