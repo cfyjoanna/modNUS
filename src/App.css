@@ -32,6 +32,7 @@ body, #root {
   border: 1px solid grey;
   padding: 1em;
   margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .module-box {
