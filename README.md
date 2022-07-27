@@ -27,3 +27,5 @@ Enter a module name and click on the search icon to find reviews.
 You can only submit one review per module. If you submit another review for a module you have already reviewed, your previous review will be replaced by the new one. Past reviews can be found by navigating to the profile (top right icon).
 
 Not every module has reviews as we did not enter example reviews for every module. You can add your own review and try searching for it.
+
+Modules that have example reviews are: CS1010E, CS1101S, CS2040S, GEA1000, GEC1005, and ST2201E.
