@@ -24,14 +24,19 @@ export default function Planner() {
     const getMods = async () => {
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
-  
-      y1s1 = docSnap.data().y1s1;
-      y1s2 = docSnap.data().y1s2;
-      y1s1modtypes = docSnap.data().y1s1modtypes;
-      y1s2modtypes = docSnap.data().y1s2modtypes;
-      coreMCs = docSnap.data().coremcs;
-      ues = docSnap.data().ues;
-      ges = docSnap.data().ges;
+
+      if (docSnap.exists()) {
+        y1s1 = docSnap.data().y1s1;
+        y1s2 = docSnap.data().y1s2;
+        y1s1modtypes = docSnap.data().y1s1modtypes;
+        y1s2modtypes = docSnap.data().y1s2modtypes;
+        coreMCs = docSnap.data().coremcs;
+        ues = docSnap.data().ues;
+        ges = docSnap.data().ges;
+      } else {
+        // doc.data() will be undefined in this case
+          window.location.replace('/errorpage');
+      }
     }
     getMods().then(result => setFinish(true));
     // eslint-disable-next-line

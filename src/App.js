@@ -22,6 +22,7 @@ import Profile from './pages/Profile';
 import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/timetable/TimetableGenerator';
 import ReviewSubmitted from './pages/ReviewSubmitted';
+import ErrorPage from './pages/ErrorPage';
 
 import { Oval } from 'react-loading-icons'
 
@@ -49,6 +50,7 @@ function App() {
                 <Route path="reviews" element={<Reviews />} />
                 <Route path="addmodreview" element={<AddModReview />} />
                 <Route path="reviewsubmitted" element={<ReviewSubmitted />} />
+                <Route path="errorpage" element={<ErrorPage />} />
               </Routes>
             </div>}
         </>
