@@ -12,6 +12,7 @@ export default function ReviewSubmitted() {
         <Box justifyContent="center">
           <h1>Sorry! There was an error loading your data.</h1>
           <span>Try contacting us or signing in with a different account.</span>
+          <span>Redirecting...</span>
         </Box>
       </div>
     </>
