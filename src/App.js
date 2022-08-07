@@ -23,6 +23,7 @@ import Reviews from './pages/Reviews';
 import TimetableGenerator from './pages/timetable/TimetableGenerator';
 import ReviewSubmitted from './pages/ReviewSubmitted';
 import ErrorPage from './pages/ErrorPage';
+import EditReview from './pages/EditReview';
 
 import { Oval } from 'react-loading-icons'
 
@@ -51,6 +52,7 @@ function App() {
                 <Route path="addmodreview" element={<AddModReview />} />
                 <Route path="reviewsubmitted" element={<ReviewSubmitted />} />
                 <Route path="errorpage" element={<ErrorPage />} />
+                <Route path="editreview/:docId" element={<EditReview />} />
               </Routes>
             </div>}
         </>

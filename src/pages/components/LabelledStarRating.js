@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 
@@ -14,9 +14,15 @@ function getLabelText(value) {
   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-export default function LabelledStarRating({ setRating }) {
+export default function LabelledStarRating({ setRating, initial }) {
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
+
+  useEffect(() => {
+    if (typeof initial !== "undefined") {
+      setValue(initial);
+    }
+  }, [initial])
 
   return (
     <Box
