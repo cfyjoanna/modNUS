@@ -3,13 +3,6 @@ import { useAuth } from '../hooks/useAuth';
 import { Grid } from '@mui/material';
 
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import ArticleIcon from '@mui/icons-material/Article';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
@@ -25,16 +18,17 @@ import Tooltip from '@mui/material/Tooltip';
 import Rating from '@mui/material/Rating';
 import LabelledRatingReadOnly from './components/LabelledRatingReadOnly.js';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, where, doc, deleteDoc } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig';
+
+import ProfileSideBar from './components/ProfileSideBar';
 
 var reviewToDelete = "";
 
 export default function PastReviews() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const pfp = user.photoURL;
   // eslint-disable-next-line
   const [finish, setFinish] = useState(false);
   const [reviews, setReviews] = useState([]); // reviews to be displayed
@@ -81,29 +75,7 @@ export default function PastReviews() {
       <h2>Past Module Reviews</h2>
       <Grid container alignItems="top" spacing={2}>
         <Grid item xs={3}>
-        <img src={pfp} alt="Avatar" referrerPolicy="no-referrer"/>
-        <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          <List component="nav" aria-label="main mailbox folders">
-          <Link to='/profile' style={{ textDecoration: 'none', color: 'black' }}>
-              <ListItemButton
-                selected={false}
-              >
-                <ListItemIcon>
-                  <PermIdentityIcon />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
-              </ListItemButton>
-            </Link>
-            <ListItemButton
-              selected={true}
-            >
-              <ListItemIcon>
-                <ArticleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Past Reviews" />
-            </ListItemButton>
-          </List>
-        </Box>
+        <ProfileSideBar select={[false, true]}/>
 
         </Grid>
         <Grid item xs={9}>
