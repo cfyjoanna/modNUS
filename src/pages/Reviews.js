@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { collection, getDocs, query, where } from 'firebase/firestore'; 
 import { db } from '../config/firebaseConfig.js';
 
-import SearchBar from './components/SearchBar.js';
+import ReviewsSearchBar from './components/ReviewsSearchBar.js';
 import LabelledRatingReadOnly from './components/LabelledRatingReadOnly.js';
 
 export default function Reviews() {
@@ -39,12 +39,11 @@ export default function Reviews() {
   return (
     <div className="wrapper">
       <h2>Reviews</h2>
-      <span>Click on search icon to find reviews.</span>
 
       {/* Search bar and icon */}
       <Grid container alignItems="center" spacing={2}>
         <Grid item xs={11}>
-          <SearchBar refHook={moduleNameRef} />
+          <ReviewsSearchBar refHook={moduleNameRef} handleSearch={handleSearch} />
         </Grid>
         <Grid item xs={1}>
         <IconButton aria-label="search" onClick={handleSearch}>
