@@ -32,7 +32,7 @@ function App() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    setTimeout(() => setLoading(false), 1300);
+    setTimeout(() => setLoading(false), 1700);
   }, [])
   
   return (
