@@ -6,7 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 To start running, open the terminal and check that you have Node.js by running `node -v`, then run `npm start` to start the application on a local host in your browser.
 
-If the error `Missing script: "start"` appears, make sure you are in the correct directory. (You may have to enter an extra `cd modnus-master` in the terminal.)
+If the error `Missing script: "start"` appears, make sure you are in the correct directory. (You may have to enter an extra `cd (filename)` in the terminal.)
+
+If the webpack compiles with many `Module not found` errors, try running `npm install`.
 
 ## Features
 
