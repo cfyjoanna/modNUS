@@ -14,15 +14,14 @@ export default function Home() {
   }, [user])
 
   return(
-    <>
-      <div className="wrapper">
-        <h2>Home</h2>
-        <span>
-          Welcome to modNUS, {name}!
-          <br /><br />
-          Here you can <Link to='/generator'>get help to plan your timetable</Link>, <Link to='/planner'>plan your academic years efficiently</Link> and <Link to='/reviews'>check out what others think about any module</Link>.
-        </span>
-      </div>
-    </>
+    <div className="login-wrapper">
+      <img src="https://www.nus.edu.sg/images/default-source/base/logo.png" alt="nus logo" />
+      <br />
+      <span align="center">
+        Welcome to modNUS, {name}!
+        <br /><br />
+        Here you can <Link to='/generator'>get help to plan your timetable</Link>, <Link to='/planner'>plan your academic years efficiently</Link> and <Link to='/reviews'>check out what others think about any module</Link>.
+      </span>
+    </div>
   );
 }

@@ -12,7 +12,6 @@ export default function ModuleList({ mods, modtypes, sem, deleteMod, updateCoreM
       counter = counter + 1;
 
       const currMod = nusmodsData.find(module => module.moduleCode === mod);
-      console.log(currMod)
 
       return typeof(currMod) === 'undefined' ? "" : (
         <div className="module-box" key={mod}>
