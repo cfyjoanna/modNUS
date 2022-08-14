@@ -237,7 +237,7 @@ export default function TimetableGenerator() {
             const [eHour, eMinute] = v.endTimes[i].split(':');
             const sTime = +sHour + +sMinute / 60;
             const eTime = +eHour + +eMinute / 60;
-            if (typeof(weekTimings.find((arr) => arr[0] === day && ((arr[1] === sTime || arr[2] === sTime) || (arr[1] !== eTime || arr[2] !== eTime)))) !== 'undefined') {
+            if (typeof(weekTimings.find((arr) => arr[0] === day && ((arr[1] === sTime || arr[2] === sTime) || (arr[1] === eTime || arr[2] === eTime)))) !== 'undefined') {
               console.log(sTime)
               console.log(weekTimings);
               backtoback = true;
@@ -254,7 +254,7 @@ export default function TimetableGenerator() {
       );
       console.log(currEvent);
       if (typeof(currEvent) === 'undefined') {
-        setButtonPopup(true);
+        //setButtonPopup(true);
         possibleTimetable1 = false;
         return {};
       } else {
@@ -282,7 +282,7 @@ export default function TimetableGenerator() {
             const [eHour, eMinute] = v.endTimes[i].split(':');
             const sTime = +sHour + +sMinute / 60;
             const eTime = +eHour + +eMinute / 60;
-            if (typeof(weekTimings.find((arr) => arr[0] === day && ((arr[1] === sTime || arr[2] === sTime) || (arr[1] !== eTime || arr[2] !== eTime)))) !== 'undefined') {
+            if (typeof(weekTimings.find((arr) => arr[0] === day && ((arr[1] === sTime || arr[2] === sTime) || (arr[1] === eTime || arr[2] === eTime)))) !== 'undefined') {
               console.log(sTime)
               console.log(weekTimings);
               backtoback = true;
@@ -299,6 +299,7 @@ export default function TimetableGenerator() {
             && ((startTime <= option.earliestTime && endTime >= option.latestTime) && (btbchecked || !testbtb(option)))
       );
       if (typeof(currEvent) === 'undefined') {
+        possibleTimetable2 = false;
         return event;
       } else {
         possibleTimetable2 = true;
@@ -326,7 +327,27 @@ export default function TimetableGenerator() {
       setButtonPopup(true);
       possibleTimetable1 = false;
       possibleTimetable2 = false;
-    } else {
+    } else if (possibleTimetable1 && possibleTimetable2) {
+      setTimeTables(events => {
+        return [ 
+          <TimeTable 
+            eventGroups={eventsGroup1} 
+            configs={{
+              numOfDays: 5,
+              startHour: startTime,
+              endHour: endTime,
+            }}
+           />,
+           <TimeTable 
+           eventGroups={eventsGroup2} 
+           configs={{
+             numOfDays: 5,
+             startHour: startTime,
+             endHour: endTime,
+           }}
+          />];
+      })
+    } else if (possibleTimetable1) {
       setTimeTables(events => {
         return [ 
           <TimeTable 
@@ -337,15 +358,34 @@ export default function TimetableGenerator() {
               endHour: endTime,
             }}
            />,
-           <TimeTable 
-           eventGroups={possibleTimetable2 ? eventsGroup2 : []} 
-           configs={{
-             numOfDays: 5,
-             startHour: startTime,
-             endHour: endTime,
-           }}
-          />];
-      })}
+           ];
+      })} else if (possibleTimetable2) {
+        setTimeTables(events => {
+          return [ 
+            <TimeTable 
+              eventGroups={eventsGroup2} 
+              configs={{
+                numOfDays: 5,
+                startHour: startTime,
+                endHour: endTime,
+              }}
+             />,
+             ];
+        })
+      } else {
+        setTimeTables(events => {
+          return [ 
+            <TimeTable 
+              eventGroups={[]} 
+              configs={{
+                numOfDays: 5,
+                startHour: startTime,
+                endHour: endTime,
+              }}
+             />,
+             ];
+        })
+      }
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
     };

@@ -45,25 +45,6 @@ const modules = [
     },
   },
   {
-    courseId: 'CS1101S',
-    title: 'Programming Methodology',
-    credits: 4,
-    sections: {
-      '- - LEC 02': {
-        days: [2, 3],
-        startTimes: ['11:30', '16:30'],
-        endTimes: ['12:30', '18:00'],
-        locations: ['COM1-SR1', 'COM3-LT17'],
-      },
-      '-L01 - LAB': {
-        days: [2],
-        startTimes: ['16:30'],
-        endTimes: ['17:30'],
-        locations: ['AS6'],
-      },
-    },
-  },
-  {
     courseId: 'CS2040S',
     title: 'Data Structures and Algorithms',
     credits: 4,
