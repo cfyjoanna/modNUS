@@ -254,7 +254,7 @@ export default function TimetableGenerator() {
       );
       console.log(currEvent);
       if (typeof(currEvent) === 'undefined') {
-        //setButtonPopup(true);
+        setButtonPopup(true);
         possibleTimetable1 = false;
         return {};
       } else {
@@ -351,7 +351,7 @@ export default function TimetableGenerator() {
       setTimeTables(events => {
         return [ 
           <TimeTable 
-            eventGroups={possibleTimetable1 ? eventsGroup1 : []} 
+            eventGroups={eventsGroup1} 
             configs={{
               numOfDays: 5,
               startHour: startTime,
@@ -385,7 +385,7 @@ export default function TimetableGenerator() {
              />,
              ];
         })
-      }
+            }
       startTimeRef.current.value = null;
       endTimeRef.current.value = null;
     };
