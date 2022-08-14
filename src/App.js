@@ -9,7 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 
 import './App.css';
@@ -44,6 +44,7 @@ function App() {
               <MenuAppBar />
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="login" element={<Login />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="pastreviews" element={<PastReviews />} />
                 <Route path="generator" element={<TimetableGenerator />} />
@@ -69,10 +70,12 @@ function App() {
     const { user, signout } = useAuth();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorBurg, setAnchorBurg] = React.useState(null);
+    const navigate = useNavigate();
   
     const handleLogout = () => {
       handleClose();
       signout();
+      navigate('./');
     };
   
     const handleMenu = (event) => {
